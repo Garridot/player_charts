@@ -50,7 +50,7 @@ function render_stats(data){
     <span>           
         <h2>ASSISTS : ${data.Assists}</h2> <h5>(${data.Ratio_ass} per game)</h5>    
     </span>         
-    <span>
+    <span style='font-size: revert;'>
         <h2>INVOLVEMENTS PERCENTAGES:</h2>  <h2>${data.rate_involvement} %</h2>     
     </span>` ;
 
