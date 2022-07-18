@@ -1,0 +1,155 @@
+
+body{
+    /* background: #151515;  */
+    background: #030303;
+}
+h1,h2,h3,h4,h5,h6,p,a{
+    font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+    color: #aaa;    
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    color: rgb(146, 146, 146); 
+}
+/* header{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+}
+.nav{
+    width: 90%;
+    margin: auto;
+    padding:  5rem 0 0;    
+    z-index: 2; 
+    display: flex;
+    justify-content: space-between;
+} */
+header{
+    width: 100%;   
+    padding:  2rem 0 0; 
+    position: fixed;
+    z-index: 2; 
+    background: #030303;    
+}
+header .title{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+} 
+header .title h3{
+    text-transform: uppercase;
+    font-size: x-large;    
+    font-weight: 600;
+}
+@media(max-width:800px){
+    header .title h3{
+        font-size: large !important;    
+        text-align: end; 
+    } 
+    .title h3 a{
+        font-weight: 600;
+           
+    }   
+}
+/* .menu i{
+    color:#aaa;
+    font-size: x-large;
+    cursor: pointer;
+}
+.menu_list{    
+    height: 100vh;
+    position: fixed;
+    width: 100%;   
+    z-index: -1; 
+    background: rgb(165,0,68);
+    background: linear-gradient(90deg, rgba(165,0,68,0) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,1) 100%);
+    left: 100%;
+    transition: all 1s;
+    top: 0;
+}
+.menu_list.show{
+    left: 0%;
+}
+
+.menu_list ul{
+    width: 89%;
+    margin: auto;
+    margin-top: 12rem;
+}
+
+.menu_list ul li{
+    margin: 2rem 0;
+    list-style: none;
+    text-align: end;
+}
+
+.menu_list ul li a{
+    text-decoration: none ;
+    color: #aaa;
+    font-size: x-large;
+    letter-spacing: 1px;
+
+} */
+
+
+main{
+    filter: saturate(0.5); height: 720px; overflow: hidden;
+}
+
+
+
+section{
+    padding: 6rem 0 ;
+    width: 95%;
+    margin: auto;
+}
+
+section#stats{
+    display: flex;    
+    justify-content: space-between;
+    padding: 0 0 5rem  ;
+}
+#stats div{
+    padding: 0 1rem ;
+    width: 100%;
+}
+#stats span{    
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid #aaa;    
+}
+#stats span h2,
+#stats span h5{
+    line-height: 2 !important;
+    margin: 26.56px 0 !important;
+}
+
+#stats .involvement span{
+    justify-content: end;
+}
+
+@media(max-width:1000px){
+    section#stats{
+        display: block;
+    }
+}
+
+
+footer{
+    width: 95%;
+    margin: auto;
+    justify-content: space-between;
+    display: flex;
+    padding: 10rem 0 5rem;
+}
+
+footer .col{
+    text-align: center;
+}
+
+
+

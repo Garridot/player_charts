@@ -34,6 +34,10 @@ INSTALLED_APPS = [
 
     # External apps
     'rest_framework',
+
+    'charts',
+    'database',
+    'web_scraping'
 ]
 
 MIDDLEWARE = [
@@ -68,13 +72,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'player_charts.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd9nh7b26ailqen',
+        'USER': 'tnubdayzkagykc',
+        'PASSWORD': 'd32abe5004f83873d937a218e99b1f48f7e0b7d0964ba65b5689dea5e6d28d41',
+        'HOST': 'ec2-44-206-89-185.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -129,3 +138,7 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL  =  '/media/'
