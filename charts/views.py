@@ -80,6 +80,13 @@ def general_stats(request,player,team):
     return JsonResponse(context)
 
 
+old_season = ['94-95', '95-96', '96-97' ,'97-98', '98-99' ,'99-00', '00-01', '01-02', '02-03',
+ '03-04', '04-05', '05-06', '06-07', '07-08', '08-09', '09-10', '10-11', '11-12',
+ '12-13', '13-14','14-15','15-16','16-17','17-18','18-19','19-20','20-21','21-22','22-23']
+
+new_season = ['1994-95', '1995-96', '1996-97', '1997-98', '1998-99', '1999-00', '2000-01', '2001-02' ,'2002-03',
+ '2003-04', '2004-05', '2005-06', '2006-07', '2007-08', '2008-09', '2009-10' ,'2010-11' ,'2011-12',
+ '2012-13', '2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22','2022-23']
 
 
 def gls_as_season(request,player,team):
@@ -95,6 +102,9 @@ def gls_as_season(request,player,team):
     team_df = pd.DataFrame(Player_Matches.objects.all().values()) 
 
     team_df['result']= team_df['result'].apply(lambda x: x[:3])
+
+    df['season']      = df['season'].replace(old_season,new_season)
+    team_df['season'] = team_df['season'].replace(old_season,new_season)
 
     if team == 'total':     
         # if the request is 'total', get all player's stats by season    
@@ -155,6 +165,11 @@ def goal_involvements(request,player,team):
 
     team_df['result']= team_df['result'].apply(lambda x: x[:3])    
 
+    df['season']      = df['season'].replace(old_season,new_season)
+    team_df['season'] = team_df['season'].replace(old_season,new_season)
+
+   
+
     if team == 'total':     
         # get all player's stats by season         
         gls_as  = df.groupby(['season']).sum() 
@@ -167,7 +182,7 @@ def goal_involvements(request,player,team):
          
  
     else: 
-        # get all player's stats in the required team  by season  
+        # get all player's stats in the required team  by season          
         gls_as  =  df[df['team'] == team ].groupby(['season']).sum()      
 
         # get all the matches he played in the required team 
@@ -177,6 +192,7 @@ def goal_involvements(request,player,team):
         team_df.loc[(team_df['home_team'] == team), 'goals_for'] = team_df['result'].astype(str).str[0]
         team_df.loc[(team_df['away_team'] == team), 'goals_for'] = team_df['result'].astype(str).str[2]  
 
+    
     # convert strings to integers
     team_df['goals_for'] = team_df['goals_for'].astype(int)  
     

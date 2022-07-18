@@ -11,6 +11,9 @@ class Player(models.Model):
     nationality = models.CharField(max_length=200)
     picture     = models.ImageField(blank=True,null=True, upload_to=location_media) 
 
+    def __str__(self):
+        return self.name
+
 
 class Player_Team_Stats(models.Model):
     player         = models.ForeignKey(Player,on_delete=models.CASCADE)
