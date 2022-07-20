@@ -14,7 +14,9 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function get_path(path){
+function get_path(path){    
+    document.querySelector('.charts_stats').style.display = 'none'
+    document.querySelector('.page_loader').style.display  = 'flex'
     var select = document.querySelector('.filters');
     var team = select.options[select.selectedIndex].value  
 
@@ -24,13 +26,13 @@ function get_path(path){
     get_performance_competition(path,team); 
 }
 
-function get_general_stats(path,team){   
+function get_general_stats(path,team){  
     fetch( `/general_stats${path}/${team}` ,{                            
             method:'POST',
             headers:{
                 'Content-Type':'application/json',                
                 'X-CSRFToken' : getCookie('csrftoken')          
-            }, 
+            },             
         })
     .then((response)=>{ return response.json();}) 
     .then(result => {
@@ -305,12 +307,9 @@ function render_table(res){
 
     let tbody =  document.querySelector('.tbody')
     var table =  document.querySelector('.table')
-
-    
         
     while (tbody.hasChildNodes()){                
         tbody.removeChild(tbody.lastChild);}
- 
     
     for (i in res.Competition){
         tbody.innerHTML += `
@@ -322,16 +321,9 @@ function render_table(res){
             <th scope="col">${res.performance[i]}%</th>
         </tr>
         `
-       
-    }
-    // table.innerHTML = tbody
-
-    // var c = a.map(function(e, i) {
-    //     return [e, b[i]];
-    //   });
-    
-
-    
+    }     
+    document.querySelector('.page_loader').style.display  = 'none'
+    document.querySelector('.charts_stats').style.display = 'block'
     
 }
 

@@ -58,59 +58,66 @@
         }
         select.filters{
             padding:.5rem;
-        }       
+        }  
+        
     }    
 </style>
-        
+<link rel="stylesheet" href="{% static 'css/loader.css' %}">        
         <main>     
             <div class="player_name">                
                 <h1>{{player.name}}</h1>
             </div>                      
         </main> 
-        <div class="main_title">
-            <h1 style="font-size: 6rem;">STATS</h1>
-            <select class="filters" onchange="get_path( '{{path}}' )">
-                <option value="total" selected>Total</option>
-                {% for t in teams %}
-                <option value="{{t}}" >{{t}}</option>                
-                {% endfor %}
-            </select>
+        <div class="page_loader">
+            <div class="lds-roller"><div></div><div></div><div></div><div></div></div>
         </div>
+        <div class="charts_stats">
+            <div class="main_title">
+                <h1 style="font-size: 6rem;">STATS</h1>
+                <select class="filters" onchange="get_path( '{{path}}' )">
+                    <option value="total" selected>Total</option>
+                    {% for t in teams %}
+                    <option value="{{t}}" >{{t}}</option>                
+                    {% endfor %}
+                </select>
+            </div>
 
-        <section id="stats">
-            <div class="general"></div>  
-            <div class="involvement"> </div>  
-        </section> 
+            <section id="stats">
+                <div class="general"></div>  
+                <div class="involvement"> </div>  
+            </section> 
 
-        <section class="section_gls_as_season">
-            <div class="pie_chart">
-                <canvas id="gls_as_season" height="600"> </canvas>
-            </div> 
-        </section> 
+            <section class="section_gls_as_season">
+                <div class="pie_chart">
+                    <canvas id="gls_as_season" height="600"> </canvas>
+                </div> 
+            </section> 
 
-        <section class="section_involvements">    
-            <div class="involvements_chart">
-                <canvas id="involvements" height="600"> </canvas>
-            </div> 
-        </section>
-        <section>    
-            <div class="performance_table">  
-                <table class="table">
-                    <h3 style="text-transform:uppercase; padding:5rem 0">Performance by Competition</h3>
-                    <thead>
-                        <tr>
-                          <th scope="col">Competition</th>
-                          <th scope="col">PJ</th>
-                          <th scope="col">GLS.</th>
-                          <th scope="col">ASS.</th>
-                          <th scope="col">G&A %</th>
-                        </tr>
-                      </thead>
-                    <tbody class="tbody">
-                    </tbody>
-                </table>              
-            </div> 
-        </section>
+            <section class="section_involvements">    
+                <div class="involvements_chart">
+                    <canvas id="involvements" height="600"> </canvas>
+                </div> 
+            </section>
+            
+            <section>    
+                <div class="performance_table">  
+                    <table class="table">
+                        <h3 style="text-transform:uppercase; padding:5rem 0">Performance by Competition</h3>
+                        <thead>
+                            <tr>
+                            <th scope="col">Competition</th>
+                            <th scope="col">PJ</th>
+                            <th scope="col">GLS.</th>
+                            <th scope="col">ASS.</th>
+                            <th scope="col">G&A %</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        </tbody>
+                    </table>              
+                </div> 
+            </section>
+        </div>
     
         <script src="{% static 'js/stats.js' %}"></script>
         <script>
