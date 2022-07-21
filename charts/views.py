@@ -1,8 +1,13 @@
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 from django.shortcuts import render
 from django.http import JsonResponse
 from web_scraping.views import *
 from database.models import *
 import pandas as pd
+
+
 
 
 # Create your views here.
@@ -25,7 +30,7 @@ def get_stats(request,player):
     context['player'] = player 
     return render(request,'stats.html',context)
 
-
+@api_view(['GET', 'POST'])
 def general_stats(request,player,team):
 
     # return the overall stats of the player in a required team
@@ -77,7 +82,7 @@ def general_stats(request,player,team):
     # calculate the goals involvements %
     context['rate_involvement'] = round(total * 100 / goals_for,2)
 
-    return JsonResponse(context)
+    return Response(context)
 
 
 old_season = ['94-95', '95-96', '96-97' ,'97-98', '98-99' ,'99-00', '00-01', '01-02', '02-03',
@@ -89,6 +94,8 @@ new_season = ['1994-95', '1995-96', '1996-97', '1997-98', '1998-99', '1999-00', 
  '2012-13', '2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22','2022-23']
 
 
+
+@api_view(['GET', 'POST'])
 def gls_as_season(request,player,team):
 
     # return all player's goals, player's assists, player's goals involvements and all team's goals by season   
@@ -149,9 +156,9 @@ def gls_as_season(request,player,team):
     context['Player_part'] =  player_part
 
     
-    return JsonResponse(context)    
+    return Response(context)    
 
-
+@api_view(['GET', 'POST'])
 def goal_involvements(request,player,team):
     # return the rate of goals involvements by season     
 
@@ -215,12 +222,10 @@ def goal_involvements(request,player,team):
     context['Seasons']      = gls_as.index.tolist()
     context['involvements'] = involvements
 
-    return JsonResponse(context)   
+    return Response(context)   
 
 
-
-
-
+@api_view(['GET', 'POST'])
 def performance_competition(request,player,team):
 
     # return all player's goals, player's assists, player's goals involvements and player's matches by competition
@@ -294,4 +299,4 @@ def performance_competition(request,player,team):
     
 
     
-    return JsonResponse(context)   
+    return Response(context)   
