@@ -300,3 +300,5 @@ def performance_competition(request,player,team):
 
     
     return Response(context)   
+
+
