@@ -1,3 +1,4 @@
+from multiprocessing import context
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -301,4 +302,46 @@ def performance_competition(request,player,team):
     
     return Response(context)   
 
+@api_view(['GET', 'POST'])
+def favorite_victims(request,player,team): 
+
+    player = Player.objects.get(name=player)   
+    df_p = pd.DataFrame(Player_Team_Stats.objects.all().values()) 
+    df_p = df_p[df_p['player_id'] == player.id]
+
+    team_df = pd.DataFrame(Player_Matches.objects.all().values()) 
+
+    team_df = team_df[team_df['player_id'] == player.id]
+
+    team_df['home_team'] = team_df['home_team'].str.strip()
+    team_df['away_team'] = team_df['away_team'].str.strip()
+
+    if team != 'total':  
+        team_df  = team_df[team_df['team'] == team]
+
+    w_team_df  = team_df.groupby(['home_team']).sum()
+    a_team_df  = team_df.groupby(['away_team']).sum()
+
+    df = w_team_df.append(a_team_df)
+
+    df = df.groupby(level=0).sum().sort_values(by=['goals'],ascending=False)
+
+    df = df.drop(columns=['id','player_id'],axis=1) 
+
+    if team != 'total':   df =  df.loc[df.index != team]
+    elif team == 'total': 
+        for team in df_p['team'].unique():
+            df =  df.loc[df.index != team]
+
+    df = df.head(10)        
+
+    context = {}
+
+    context['teams'] = df.index.tolist()
+    context['goals'] = df['goals'].values.tolist()
+
+    return Response(context)   
+
+
+    
 

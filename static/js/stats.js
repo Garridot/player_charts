@@ -24,6 +24,7 @@ function get_path(path){
     get_gls_as_season(path,team);
     get_goal_involvements(path,team); 
     get_performance_competition(path,team); 
+    get_favorite_victims(path,team);
 }
 
 function get_general_stats(path,team){  
@@ -38,6 +39,7 @@ function get_general_stats(path,team){
     .then(result => {
         var data = result
         render_stats(data);
+        console.log(data)
         
     })         
 }
@@ -322,8 +324,96 @@ function render_table(res){
         </tr>
         `
     }     
+    
+    
+}
+
+
+function get_favorite_victims(path,team){  
+    fetch( `/favorite_victims${path}/${team}` ,{                            
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',                
+                'X-CSRFToken' : getCookie('csrftoken')          
+            },             
+        })
+    .then((response)=>{ return response.json();}) 
+    .then(result => {
+        var data = result
+        render_favorite_victims(data);
+        
+    })         
+}
+
+let myBar2;
+function render_favorite_victims(res){
+        
+    var ctx2 = document.querySelector('#victims').getContext('2d') 
+
+    if (myBar2) {
+        myBar2.destroy();
+    }
+    if(res.teams.length >= 2){
+
+        document.querySelector('.section_victims').style.display = 'block'
+
+        gradient = ctx2.createLinearGradient(0, 0, 0, 450);
+        gradient.addColorStop(0, 'rgba(0, 77, 152)');
+        gradient.addColorStop(0.75, 'rgba(0, 77, 152, 0.75)');
+        gradient.addColorStop(0.5, 'rgba(0, 77, 152, 0.5)');
+        gradient.addColorStop(0.25, 'rgba(0, 77, 152, 0.25)');
+
+        
+        myBar2 = new Chart(ctx2,{ 
+            type: 'bar',
+            data: {
+                labels : res.teams,
+                datasets:[{
+                    data  : res.goals,
+                    label : 'Goals', 
+                    backgroundColor:gradient,                                     
+                }               
+            ]},
+            options: {                
+                // indexAxis: 'y', 
+                maintainAspectRatio: false,                   
+                elements: {
+                    bar: {
+                    borderWidth: 2,
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#aaa', beginAtZero: true }
+                    },
+                    x: {
+                        ticks: { color: '#aaa', beginAtZero: true }
+                    }
+                },            
+                responsive: true,
+                plugins: {
+                    legend: {
+                    display:true,
+                    labels: {
+                        color: '#aaa'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: "Player's favorite victims.",
+                    padding: {
+                        top: 10,
+                        bottom: 30
+                    },
+                    color: "#aaa"
+                }
+            }}
+        })
+    }else{
+        document.querySelector('.section_involvements').style.display = 'none'
+    }
+
     document.querySelector('.page_loader').style.display  = 'none'
     document.querySelector('.charts_stats').style.display = 'block'
     
 }
-
