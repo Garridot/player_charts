@@ -10,6 +10,5 @@ urlpatterns = [
     path('goal_involvements/<str:player>/<str:team>',goal_involvements,name='goal_involvements'),
     path('performance_competition/<str:player>/<str:team>',performance_competition,name='performance_competition'),
     path('favorite_victims/<str:player>/<str:team>',favorite_victims,name='favorite_victims'),  
-    
-
+    path('rate_goals/<str:player>/<str:team>',rate_goals,name='rate_goals'), 
 ]

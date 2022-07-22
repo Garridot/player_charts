@@ -342,6 +342,43 @@ def favorite_victims(request,player,team):
 
     return Response(context)   
 
+@api_view(['GET', 'POST'])
+def rate_goals(request,player,team):
+    player  = Player.objects.get(name=player)   
+    df      = pd.DataFrame(Player_Team_Stats.objects.all().values()) 
+    df      = df[df['player_id'] == player.id]
+    team_df = pd.DataFrame(Player_Matches.objects.all().values()) 
+
+    team_df['result'] = team_df['result'].apply(lambda x: x[:3])      
+
+    if team == 'total': 
+
+        # get all the matches he played  
+        team_df = team_df[team_df['player_id'] == player.id]        
+        
+        # get all team's goals        
+        team_df.loc[team_df['home_team'] == team_df['team'], 'goals_for'] = team_df['result'].astype(str).str[0]         
+        team_df.loc[team_df['away_team' ]== team_df['team'], 'goals_for'] = team_df['result'].astype(str).str[2] 
+ 
+    else: 
+        df = df[df['team'] == team]
+        # get all the matches he played in the required team 
+        team_df = team_df[(team_df['player_id'] == player.id) & (team_df['team'] == team)]        
+
+        # get all team's goals   
+        team_df.loc[(team_df['home_team'] == team), 'goals_for'] = team_df['result'].astype(str).str[0]
+        team_df.loc[(team_df['away_team'] == team), 'goals_for'] = team_df['result'].astype(str).str[2] 
+
+    # convert strings to integers
+    team_df['goals_for'] = team_df['goals_for'].astype(int) 
+
+    context = {}
+
+    context["teams_goals"]  = team_df['goals_for'].sum()
+    context["player_goals"] = df['goals'].sum()
+    context["rate_goals"]   = round(df['goals'].sum() * 100 / team_df['goals_for'].sum(),2)
+
+    return Response(context)     
 
     
 

@@ -32,6 +32,25 @@
         font-weight: 600;          
              
     }
+    .section_rate_goals{        
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+       
+    }
+    .goals_charts{
+        width: 100%;
+    }
+    .ratio_goals_stats{
+        padding: 0 1rem;
+        width: 100%;
+    }
+    .ratio_goals_stats span h2{
+        border-bottom: 1px solid #aaa;
+        line-height: 2 !important;
+        margin: 26.56px 0 !important;
+    
+    }
     select.filters{        
         font-size: x-large;    
         color: #aaa;
@@ -59,6 +78,14 @@
         select.filters{
             padding:.5rem;
         } 
+        .section_rate_goals{
+            display: block;
+        }
+        .goals_charts{
+            width: 90%;
+            margin: auto;
+            padding: 5rem 0 0;
+        }
         canvas{
             height: 100vh !important;
         } 
@@ -107,6 +134,15 @@
                     <canvas id="victims" height="600"></canvas>
                 </div>
             </section>    
+            
+            <h1 style="width: 95% ;margin:auto; padding: 10rem 0 0 ;">TEAM'S GOALS SCORED</h1>
+            <section class="section_rate_goals">
+
+                <div class="ratio_goals_stats"></div>  
+                <div class="goals_charts">
+                    <canvas id="rate_goals" height="600"></canvas>                    
+                </div>
+            </section>
             
             <section>    
                 <div class="performance_table">  

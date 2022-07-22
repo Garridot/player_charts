@@ -25,6 +25,7 @@ function get_path(path){
     get_goal_involvements(path,team); 
     get_performance_competition(path,team); 
     get_favorite_victims(path,team);
+    get_rate_goals(path,team)
 }
 
 function get_general_stats(path,team){  
@@ -39,7 +40,6 @@ function get_general_stats(path,team){
     .then(result => {
         var data = result
         render_stats(data);
-        console.log(data)
         
     })         
 }
@@ -413,7 +413,88 @@ function render_favorite_victims(res){
         document.querySelector('.section_involvements').style.display = 'none'
     }
 
-    document.querySelector('.page_loader').style.display  = 'none'
-    document.querySelector('.charts_stats').style.display = 'block'
+    
     
 }
+
+
+function get_rate_goals(path,team){  
+    fetch( `/rate_goals${path}/${team}` ,{                            
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',                
+                'X-CSRFToken' : getCookie('csrftoken')          
+            },             
+        })
+    .then((response)=>{ return response.json();}) 
+    .then(result => {
+        var data = result
+        render_rate_goals(data);
+        render_rate_goals_stats(data);
+        
+    })         
+}
+let mypie;
+function render_rate_goals(data){
+    var ctx2 = document.querySelector('#rate_goals').getContext('2d') 
+
+    if (mypie) {
+        mypie.destroy();        
+    }
+
+    mypie = new Chart(ctx2,{ 
+        type: 'doughnut',
+        data: { 
+            labels: [ "Player's Goals", "Teams's Goals" ],
+              datasets: [{
+                label: "player's Goals",
+                data: [data.rate_goals, 100 - data.rate_goals],
+                backgroundColor: [ '#aaa', '#030303' ],
+                hoverOffset: 4
+              }]
+          },
+        options: {              
+           
+            maintainAspectRatio: false,  
+            responsive: true,
+            plugins: {
+                legend: {
+                display:true,
+                labels: {
+                    color: '#aaa'
+                }
+            },
+            title: {
+                display: true,
+                text: "Percent of the goals scored.",
+                padding: {
+                    top: 10,
+                    bottom: 30
+                },
+                color: "#aaa"
+            }
+        }}
+    })
+    
+}
+
+function render_rate_goals_stats(data){
+    // document.querySelector('.section_rate_goals').style.display = 'flex'
+    var stats_ = document.querySelector('.ratio_goals_stats')    
+
+    stats_.innerHTML = `
+    <span>
+        <h2>TEAM'S GOALS : ${data.teams_goals} </h2>     
+    </span>
+    <span>           
+        <h2>PLAYER'S GOALS : ${data.player_goals}</h2> 
+    </span>         
+    <span style='font-size: revert;'>
+        <h2>${data.rate_goals}% OF TEAM'S GOALS</h2> 
+    </span>` ;
+
+    document.querySelector('.page_loader').style.display  = 'none'
+    document.querySelector('.charts_stats').style.display = 'block'
+}
+
+
