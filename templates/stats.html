@@ -4,7 +4,7 @@
 <style>    
     main{
         background: url({{player.picture.url}});
-        /* background-position: 0% 9%; */
+        background-position: 0% 9%;
         background-size: cover;
         }
     .player_name{
@@ -32,9 +32,9 @@
         font-weight: 600;          
              
     }
-    .section_rate_goals{        
+    .rate_date{        
         justify-content: space-between;
-        align-items: center;
+        align-items: end;
         display: flex;
        
     }
@@ -47,7 +47,8 @@
     }
     .ratio_goals_stats span h2{
         border-bottom: 1px solid #aaa;
-        line-height: 2 !important;
+        line-height: 2 !important;        
+        font-size: revert;
         margin: 26.56px 0 !important;
     
     }
@@ -78,9 +79,9 @@
         select.filters{
             padding:.5rem;
         } 
-        .section_rate_goals{
+        .rate_date{
             display: block;
-        }
+        }        
         .goals_charts{
             width: 90%;
             margin: auto;
@@ -129,20 +130,22 @@
                 </div> 
             </section>
 
+            
+            <section class="section_rate_goals">
+                <p>TEAM'S GOALS SCORED</p>
+                <div class="rate_date">
+                    <div class="ratio_goals_stats"></div>  
+                    <div class="goals_charts">
+                        <canvas id="rate_goals" height="600"></canvas>                    
+                    </div>
+                </div>                
+            </section>
+
             <section class="section_victims">
                 <div>
                     <canvas id="victims" height="600"></canvas>
                 </div>
-            </section>    
-            
-            <h1 style="width: 95% ;margin:auto; padding: 10rem 0 0 ;">TEAM'S GOALS SCORED</h1>
-            <section class="section_rate_goals">
-
-                <div class="ratio_goals_stats"></div>  
-                <div class="goals_charts">
-                    <canvas id="rate_goals" height="600"></canvas>                    
-                </div>
-            </section>
+            </section>   
             
             <section>    
                 <div class="performance_table">  

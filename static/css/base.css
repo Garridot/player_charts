@@ -126,6 +126,7 @@ section#stats{
 #stats span h5{
     line-height: 2 !important;
     margin: 26.56px 0 !important;
+    font-size: revert;
 }
 
 #stats .involvement span{

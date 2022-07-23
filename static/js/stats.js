@@ -396,17 +396,28 @@ function render_favorite_victims(res){
                     display:true,
                     labels: {
                         color: '#aaa'
-                    }
-                },
-                title: {
-                    display: true,
-                    text: "Player's favorite victims.",
-                    padding: {
-                        top: 10,
-                        bottom: 30
                     },
-                    color: "#aaa"
-                }
+                    title: {
+                        display: true,
+                        text: "Player's favorite victims.",                        
+                        padding: {
+                            top: 10,
+                            bottom: 30
+                        },
+                        color: "#aaa",
+                        align:'start',
+                     }
+                },
+                // title: {                    
+                //     display: true,
+                //     text: "Player's favorite victims.",
+                //     horizontalAlign: "left",
+                //     padding: {
+                //         top: 10,
+                //         bottom: 30
+                //     },
+                //     color: "#aaa"
+                // }
             }}
         })
     }else{
@@ -449,7 +460,8 @@ function render_rate_goals(data){
               datasets: [{
                 label: "player's Goals",
                 data: [data.rate_goals, 100 - data.rate_goals],
-                backgroundColor: [ '#aaa', '#030303' ],
+                backgroundColor: [ 'rgba(168, 19, 62, 0.5)', '#030303' ],
+                borderColor : [ 'rgba(168, 19, 62, 0.5)', '#4f4f4f' ],
                 hoverOffset: 4
               }]
           },
@@ -462,7 +474,11 @@ function render_rate_goals(data){
                 display:true,
                 labels: {
                     color: '#aaa'
-                }
+                },
+                padding: {
+                    top: 10,
+                    bottom: 30
+                },
             },
             title: {
                 display: true,
@@ -490,7 +506,7 @@ function render_rate_goals_stats(data){
         <h2>PLAYER'S GOALS : ${data.player_goals}</h2> 
     </span>         
     <span style='font-size: revert;'>
-        <h2>${data.rate_goals}% OF TEAM'S GOALS</h2> 
+        <h2>PLAYER SCORED ${data.rate_goals}% OF TEAM'S GOALS</h2> 
     </span>` ;
 
     document.querySelector('.page_loader').style.display  = 'none'
