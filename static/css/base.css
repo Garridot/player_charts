@@ -152,5 +152,20 @@ footer .col{
     text-align: center;
 }
 
+@media(max-width:800px){
+    header .title h3{
+        font-size: large !important;    
+        text-align: end; 
+    } 
+    .title h3 a{
+        font-weight: 600;
+           
+    }   
+}@media(max-width:800px){
+    footer{
+        display: block;
+    } 
+}
+
 
 
