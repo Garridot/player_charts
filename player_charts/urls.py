@@ -22,7 +22,8 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('charts.urls'))
+    path('',include('charts.urls')),
+    path('scraping/',include('web_scraping.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

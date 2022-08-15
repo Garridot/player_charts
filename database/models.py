@@ -28,6 +28,7 @@ class Player_Team_Stats(models.Model):
 class Player_Matches(models.Model):
     player         = models.ForeignKey(Player,on_delete=models.CASCADE)
     team           = models.CharField(max_length=100)
+    # date           = models.DateField() 
     competition    = models.CharField(max_length=100)
     home_team      = models.CharField(max_length=100)
     result         = models.CharField(max_length=100)

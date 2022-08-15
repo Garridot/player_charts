@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+from django.shortcuts import render
 from database.models import *
 
 from bs4 import BeautifulSoup
@@ -7,6 +9,25 @@ import pandas as pd
 
 
 # Create your views here.
+
+def Get_Url_Scraping(request):    
+    
+    if request.user.is_authenticated:
+        if request.method == 'POST':  
+            url    = request.POST['url']            
+            if url == '': 
+                return HttpResponse("Url does not exist." )
+            else:    
+                player = url.split("/")[3].replace('-',' ').title()
+                Player_Scraping(url)
+                return HttpResponse(f"{player}'s stats added successfully." )
+
+        return render(request,'form_scraping.html')
+       
+    else:
+        return HttpResponse("User must to be login" )
+
+
 
 def Player_Scraping(url):
     

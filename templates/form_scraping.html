@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Scraping</title>
+</head>
+<body>
+    <div style="width: 100%;">
+        <form style="display: grid;width: 50%;margin: auto;" method="POST">
+            {% csrf_token %}
+            <label for="">Url</label>
+            <input type="text" name="url"  style="margin: .5rem 0;">
+            <input type="submit" value="Send Url">
+        </form>    
+    </div>    
+</body>
+</html>
