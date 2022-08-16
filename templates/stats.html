@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<style>    
+<style>
+    ul.menu-toggle li{
+        width: 95% !important;
+    }
     main{
         background: url({{player.picture.url}});
         background-position: 0% 9%;
