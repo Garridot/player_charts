@@ -8,7 +8,7 @@ from web_scraping.views import *
 from database.models import *
 import pandas as pd
 
-
+from django.db.models import Q
 
 
 # Create your views here.
@@ -17,7 +17,17 @@ def home(request):
     context = {}
     context['Players'] = Player.objects.all()        
     return render(request,'home.html',context)
-    
+
+def search_players(request):
+    if request.method == 'POST':
+        search   = str(request.POST['players']).title()
+        players  = Player.objects.filter(Q(name__contains=search))
+        
+        context  = {'search':search,'players':players}
+
+
+        return render(request,'search_result.html',context)
+
 
 def get_stats(request,player):
     player = Player.objects.get(name=player)

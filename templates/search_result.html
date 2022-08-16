@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="search" style="padding: 8rem 0; width: 90%;margin: auto;">    
+    <h3>Result for :{{search}}</h3>
+    <ul style="margin: 0;padding: 0;">
+        {% if players %}
+        {% for player in players %}
+        <li style="list-style:none;font-size: x-large;margin: 4rem 0 ;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}

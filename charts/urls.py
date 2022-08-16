@@ -4,6 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('',home,name='home'),
+    path('search',search_players,name='search_players'),
     path('<str:player>',get_stats,name='get_stats'),
     path('general_stats/<str:player>/<str:team>',general_stats,name='general_stats'),    
     path('gls_as_season/<str:player>/<str:team>',gls_as_season,name='gls_as_season'), 

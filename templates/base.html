@@ -28,8 +28,9 @@
         </header>
         <ul class="menu-toggle">
             <li>
-             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search Players" aria-label="Search">
+             <form class="d-flex" role="search" method="POST" action="{% url 'search_players' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" name='players' type="search" placeholder="Search Players" aria-label="Search">
                 <button class="btn btn-outline" type="submit">Search</button>
               </form>
             </li>
