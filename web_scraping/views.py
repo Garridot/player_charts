@@ -13,7 +13,8 @@ import pandas as pd
 def Get_Url_Scraping(request):    
     
     if request.user.is_authenticated:
-        if request.method == 'POST':  
+        if request.method == 'POST': 
+           
             url    = request.POST['url']            
             if url == '': 
                 return HttpResponse("Url does not exist." )
@@ -129,8 +130,11 @@ def Player_Scraping(url):
     df['Date'] = pd.to_datetime(df['Date'], format='%m-%d-%y')
     
     df = df.sort_values(by='Date') 
+
+    Update_data(df,player_name)
     
-    Save_data(df,player_name)
+    
+    # Save_data(df,player_name)
 
 
 def Save_data(df,player_name):   
@@ -175,6 +179,31 @@ def Save_data(df,player_name):
 
 
 
+def Update_data(df,player_name):   
+
+    group  = df.groupby(['Competition','Season','Team']).sum()
+    player =  Player.objects.get_or_create(name=player_name)
+
+   
+    # save player's matches
+    for i in df.to_dict('records'):
+
+        Player_Matches.objects.filter(
+            player         = player[0],
+            team           = i['Team'],            
+            competition    = i['Competition'],
+            home_team      = i['Home Team'], 
+            result         = i['Result'],
+            away_team      = i['Away Team'],
+            goals          = i['Goals'],
+            assists        = i['Assists'],            
+            season         = i['Season'],            
+        ).update(date = i['Date'])   
+        
+    print(f"{player[0]}'s stats updated successfully.")    
+
+
+
 
 
 
@@ -199,6 +228,8 @@ def call_scrap():
         'https://www.transfermarkt.com/wayne-rooney/leistungsdaten/spieler/3332',       
         # Benzema's Stats
         'https://www.transfermarkt.com/karim-benzema/leistungsdaten/spieler/18922',
+        # Etoo's Stats
+        'https://www.transfermarkt.com/samuel-etoo/leistungsdaten/spieler/4257'
     ]
 
     for url in urls:

@@ -14,7 +14,7 @@ class PlayerTeamStatsAdmin(admin.ModelAdmin):
 
 
 class MatchesAdmin(admin.ModelAdmin):
-    list_display  = ('id','player','team','competition','home_team','result','goals','away_team','assists','season')    
+    list_display  = ('id','player','team','date','competition','home_team','result','goals','away_team','assists','season')    
     search_fields = ('player','team','competition','season')    
     list_filter   = ('player','season','team')
 
