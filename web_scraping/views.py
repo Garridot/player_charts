@@ -130,11 +130,8 @@ def Player_Scraping(url):
     df['Date'] = pd.to_datetime(df['Date'], format='%m-%d-%y')
     
     df = df.sort_values(by='Date') 
-
-    Update_data(df,player_name)
     
-    
-    # Save_data(df,player_name)
+    Save_data(df,player_name)
 
 
 def Save_data(df,player_name):   
@@ -165,7 +162,7 @@ def Save_data(df,player_name):
         stats = Player_Matches(
             player         = player[0],
             team           = i['Team'],
-            # date           = i['Date'],
+            date           = i['Date'],
             competition    = i['Competition'],
             home_team      = i['Home Team'], 
             result         = i['Result'],
@@ -176,31 +173,6 @@ def Save_data(df,player_name):
         )
         stats.save() 
     print(f"{player[0]}'s stats saved successfully.")    
-
-
-
-def Update_data(df,player_name):   
-
-    group  = df.groupby(['Competition','Season','Team']).sum()
-    player =  Player.objects.get_or_create(name=player_name)
-
-   
-    # save player's matches
-    for i in df.to_dict('records'):
-
-        Player_Matches.objects.filter(
-            player         = player[0],
-            team           = i['Team'],            
-            competition    = i['Competition'],
-            home_team      = i['Home Team'], 
-            result         = i['Result'],
-            away_team      = i['Away Team'],
-            goals          = i['Goals'],
-            assists        = i['Assists'],            
-            season         = i['Season'],            
-        ).update(date = i['Date'])   
-        
-    print(f"{player[0]}'s stats updated successfully.")    
 
 
 
