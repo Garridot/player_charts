@@ -123,6 +123,7 @@ def gls_as_season(request,player,team):
 
     df['season']      = df['season'].replace(old_season,new_season)
     team_df['season'] = team_df['season'].replace(old_season,new_season)
+    
 
     if team == 'total':     
         # if the request is 'total', get all player's stats by season    
@@ -160,6 +161,7 @@ def gls_as_season(request,player,team):
     context['Assists']  = gls_as['assists'].values.tolist()    
     context['Seasons']  = gls_as.index.tolist()
     context['Team_gls'] = team_df['goals_for'].values.tolist() 
+    
    
     player_part = []
     # get goals involvements by season

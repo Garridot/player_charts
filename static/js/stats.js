@@ -84,6 +84,7 @@ function get_gls_as_season(path,team){
 }
 let myLine;
 function render_gls_as_season(res){
+    
 
     var ctx = document.querySelector('#gls_as_season').getContext('2d')
     if (myLine) {
@@ -353,6 +354,7 @@ function render_favorite_victims(res){
     if (myBar2) {
         myBar2.destroy();
     }
+    
     if(res.teams.length >= 2){
 
         document.querySelector('.section_victims').style.display = 'block'
