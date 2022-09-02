@@ -23,8 +23,7 @@ function get_path(path){
     get_general_stats(path,team);
     get_gls_as_season(path,team);
     get_goal_involvements(path,team); 
-    get_performance_competition(path,team); 
-    get_favorite_victims(path,team);
+    get_performance_competition(path,team);     
     get_rate_goals(path,team)
 }
 
@@ -68,7 +67,7 @@ function render_stats(data){
 
 
 function get_gls_as_season(path,team){
-    fetch( `/gls_as_season${path}/${team}` ,{                            
+    fetch( `/goals_involvements_season${path}/${team}` ,{                            
             method:'POST',
             headers:{
                 'Content-Type':'application/json',                
@@ -139,7 +138,7 @@ function render_gls_as_season(res){
                     },                
                     {
                         label : 'Goals involvements',
-                        data: res.Player_part,
+                        data: res.goals_involvements,
                         fill: 'start',                    
                         borderColor: 'rgba(237, 187, 0)',
                         pointBackgroundColor: 'white',
@@ -147,8 +146,8 @@ function render_gls_as_season(res){
                         tension: 0.2
                     },
                     {
-                        label : "Team's Goals",
-                        data: res.Team_gls,
+                        label : "Games",
+                        data: res.Games,
                         fill: 'start',
                         backgroundColor: gradient3,
                         // borderColor: '#004D98',
@@ -205,7 +204,7 @@ function render_gls_as_season(res){
 
 
 function get_goal_involvements(path,team){
-    fetch( `/goal_involvements${path}/${team}` ,{                            
+    fetch( `/goal_involvements_rate${path}/${team}` ,{                            
             method:'POST',
             headers:{
                 'Content-Type':'application/json',                
@@ -243,7 +242,7 @@ function render_goal_involvements(res){
             data: {
                 labels : res.Seasons,
                 datasets:[{
-                    data  : res.involvements,
+                    data  : res.Goal_Involvements_Rate,
                     label : 'Goals Involvements Percentages', 
                     backgroundColor:gradient,                                     
                 }               
@@ -330,109 +329,9 @@ function render_table(res){
 }
 
 
-function get_favorite_victims(path,team){  
-    fetch( `/favorite_victims${path}/${team}` ,{                            
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',                
-                'X-CSRFToken' : getCookie('csrftoken')          
-            },             
-        })
-    .then((response)=>{ return response.json();}) 
-    .then(result => {
-        var data = result
-        render_favorite_victims(data);
-        
-    })         
-}
-
-let myBar2;
-function render_favorite_victims(res){
-        
-    var ctx2 = document.querySelector('#victims').getContext('2d') 
-
-    if (myBar2) {
-        myBar2.destroy();
-    }
-    
-    if(res.teams.length >= 2){
-
-        document.querySelector('.section_victims').style.display = 'block'
-
-        gradient = ctx2.createLinearGradient(0, 0, 0, 450);
-        gradient.addColorStop(0, 'rgba(0, 77, 152)');
-        gradient.addColorStop(0.75, 'rgba(0, 77, 152, 0.75)');
-        gradient.addColorStop(0.5, 'rgba(0, 77, 152, 0.5)');
-        gradient.addColorStop(0.25, 'rgba(0, 77, 152, 0.25)');
-
-        
-        myBar2 = new Chart(ctx2,{ 
-            type: 'bar',
-            data: {
-                labels : res.teams,
-                datasets:[{
-                    data  : res.goals,
-                    label : 'Goals', 
-                    backgroundColor:gradient,                                     
-                }               
-            ]},
-            options: {                
-                // indexAxis: 'y', 
-                maintainAspectRatio: false,                   
-                elements: {
-                    bar: {
-                    borderWidth: 2,
-                    }
-                },
-                scales: {
-                    y: {
-                        ticks: { color: '#aaa', beginAtZero: true }
-                    },
-                    x: {
-                        ticks: { color: '#aaa', beginAtZero: true }
-                    }
-                },            
-                responsive: true,
-                plugins: {
-                    legend: {
-                    display:true,
-                    labels: {
-                        color: '#aaa'
-                    },
-                    title: {
-                        display: true,
-                        text: "Player's favorite victims.",                        
-                        padding: {
-                            top: 10,
-                            bottom: 30
-                        },
-                        color: "#aaa",
-                        align:'start',
-                     }
-                },
-                // title: {                    
-                //     display: true,
-                //     text: "Player's favorite victims.",
-                //     horizontalAlign: "left",
-                //     padding: {
-                //         top: 10,
-                //         bottom: 30
-                //     },
-                //     color: "#aaa"
-                // }
-            }}
-        })
-    }else{
-        document.querySelector('.section_involvements').style.display = 'none'
-    }
-
-    
-    
-}
-
 
 function get_rate_goals(path,team){  
-    fetch( `/rate_goals${path}/${team}` ,{                            
+    fetch( `/goals_involvements_overall_rate${path}/${team}` ,{                            
             method:'POST',
             headers:{
                 'Content-Type':'application/json',                
@@ -458,12 +357,12 @@ function render_rate_goals(data){
     mypie = new Chart(ctx2,{ 
         type: 'doughnut',
         data: { 
-            labels: [ "Player's Goals", "Teams's Goals" ],
+            labels: [ "Player's Goals","Player's Assists", "Teams's Goals" ],
               datasets: [{
                 label: "player's Goals",
-                data: [data.rate_goals, 100 - data.rate_goals],
-                backgroundColor: [ 'rgba(168, 19, 62, 0.5)', '#030303' ],
-                borderColor : [ 'rgba(168, 19, 62, 0.5)', '#4f4f4f' ],
+                data: [data.player_goals,data.player_assists,data.team_goals - (data.player_goals + data.player_assists)],
+                backgroundColor: [ 'rgba(168, 19, 62, 0.5)','rgba(0, 77, 152, 0.5)', '#030303' ],
+                borderColor : [ 'rgba(168, 19, 62, 0.5)','rgba(0, 77, 152, 0.5)', '#4f4f4f' ],
                 hoverOffset: 4
               }]
           },
@@ -502,13 +401,13 @@ function render_rate_goals_stats(data){
 
     stats_.innerHTML = `
     <span>
-        <h2>TEAM'S GOALS : ${data.teams_goals} </h2>     
+        <h2>TEAM'S GOALS : ${data.team_goals} </h2>     
     </span>
     <span>           
         <h2>PLAYER'S GOALS : ${data.player_goals}</h2> 
     </span>         
     <span style='font-size: revert;'>
-        <h2>PLAYER SCORED ${data.rate_goals}% OF TEAM'S GOALS</h2> 
+        <h2>PLAYER SCORED ${data.rate_goals_involvements}% OF TEAM'S GOALS</h2> 
     </span>` ;
 
     document.querySelector('.page_loader').style.display  = 'none'
