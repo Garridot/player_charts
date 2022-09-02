@@ -277,10 +277,34 @@ def Player_matches_update(url):
 def Save_new_matches(df,player_name,season):
 
     player =  Player.objects.get_or_create(name=player_name)
+   
+    group  = df.groupby(['Competition','Season','Team']).sum() 
 
+    # # save player's Stats
+    # for i,x in zip(group.to_dict('records'),group.index.to_list()):
+
+    #     matches = len(df[(df['Competition']==x[0]) & (df['Season']==x[1])]) 
+
+    #     stats = Player_Team_Stats.objects.update_or_create(
+    #         player         = player[0],
+    #         team           = x[2],
+    #         competition    = x[0],
+    #         games          = matches,    
+    #         goals          = i['Goals'],
+    #         assists        = i['Assists'],            
+    #         season         = x[1],             
+    #     )
+
+    #     print(f"{player[0]}'s team stats updated successfully.")  
+        
+         
+
+    # save player's matches
     for i in df.to_dict('records'):
         if pd.to_datetime(i['Date']).date() > Player_Matches.objects.filter(player=player[0]).last().date:
 
+
+            # save player's matches
             stats = Player_Matches(
                 player         = player[0],
                 team           = i['Team'],
@@ -293,8 +317,9 @@ def Save_new_matches(df,player_name,season):
                 assists        = i['Assists'],            
                 season         = i['Season'],            
             )
-            stats.save() 
-            print(f"{player[0]}'s stats updated successfully.")   
+            stats.save()
+
+            print(f"{player[0]}'s matches updated successfully.")   
     
    
 
@@ -302,15 +327,15 @@ def Save_new_matches(df,player_name,season):
 def call_urls():
     urls = [
         # Messi's Stats
-        'https://www.transfermarkt.com/lionel-messi/leistungsdaten/spieler/28003',
+        # 'https://www.transfermarkt.com/lionel-messi/leistungsdaten/spieler/28003',
         # Cristiano's Stats
-        'https://www.transfermarkt.com/cristiano-ronaldo/leistungsdaten/spieler/8198',    
-        # Ibrahimovic's Stats
-        'https://www.transfermarkt.com/zlatan-ibrahimovic/leistungsdaten/spieler/3455',
-        #Suarez's Stats
-        'https://www.transfermarkt.com/luis-suarez/leistungsdaten/spieler/44352',
+        # 'https://www.transfermarkt.com/cristiano-ronaldo/leistungsdaten/spieler/8198',    
+        # # Ibrahimovic's Stats
+        # 'https://www.transfermarkt.com/zlatan-ibrahimovic/leistungsdaten/spieler/3455',
+        # #Suarez's Stats
+        # 'https://www.transfermarkt.com/luis-suarez/leistungsdaten/spieler/44352',
         # Lewandowski's Stats
-        'https://www.transfermarkt.com/robert-lewandowski/leistungsdaten/spieler/38253',  
+        # 'https://www.transfermarkt.com/robert-lewandowski/leistungsdaten/spieler/38253',  
         # Benzema's Stats
         'https://www.transfermarkt.com/karim-benzema/leistungsdaten/spieler/18922',
         
@@ -319,3 +344,4 @@ def call_urls():
     for url in urls:
         Player_matches_update(url)
 
+# call_urls()

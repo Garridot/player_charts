@@ -36,4 +36,18 @@ class Player_Matches(models.Model):
     away_team      = models.CharField(max_length=100)
     goals          = models.IntegerField()
     assists        = models.IntegerField()    
-    season         = models.CharField(max_length=100)   
+    season         = models.CharField(max_length=100) 
+
+
+class Player_Stats_by_Season(models.Model):
+    player         = models.ForeignKey(Player,on_delete=models.CASCADE)
+    team           = models.CharField(max_length=100)    
+    competition    = models.CharField(max_length=100)    
+    goals          = models.IntegerField()
+    assists        = models.IntegerField()
+    games          = models.IntegerField()    
+    wins           = models.IntegerField()    
+    draws          = models.IntegerField()
+    defeats        = models.IntegerField()  
+    team_goals     = models.IntegerField()  
+    season         = models.CharField(max_length=100)

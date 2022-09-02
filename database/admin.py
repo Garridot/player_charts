@@ -18,8 +18,14 @@ class MatchesAdmin(admin.ModelAdmin):
     search_fields = ('player','team','competition','season')    
     list_filter   = ('player','season','team')
 
+
+class PlayerStatAdmin(admin.ModelAdmin):
+    list_display  = ('id','player','team','competition','goals','assists','games','wins','draws','defeats','team_goals','season')    
+    search_fields = ('player','team','competition','season')    
+    list_filter   = ('player','season','team')
+
 admin.site.register(Player,PlayersAdmin)
 admin.site.register(Player_Team_Stats,PlayerTeamStatsAdmin)
 admin.site.register(Player_Matches,MatchesAdmin)
-
+admin.site.register(Player_Stats_by_Season,PlayerStatAdmin)
 
