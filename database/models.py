@@ -16,29 +16,6 @@ class Player(models.Model):
         return self.name
 
 
-class Player_Team_Stats(models.Model):
-    player         = models.ForeignKey(Player,on_delete=models.CASCADE)
-    team           = models.CharField(max_length=100)
-    competition    = models.CharField(max_length=100)
-    games          = models.IntegerField()    
-    goals          = models.IntegerField()
-    assists        = models.IntegerField()    
-    season         = models.CharField(max_length=100)   
-
-
-class Player_Matches(models.Model):
-    player         = models.ForeignKey(Player,on_delete=models.CASCADE)
-    team           = models.CharField(max_length=100)
-    date           = models.DateField(default=datetime.date.today) 
-    competition    = models.CharField(max_length=100)
-    home_team      = models.CharField(max_length=100)
-    result         = models.CharField(max_length=100)
-    away_team      = models.CharField(max_length=100)
-    goals          = models.IntegerField()
-    assists        = models.IntegerField()    
-    season         = models.CharField(max_length=100) 
-
-
 class Player_Stats_by_Season(models.Model):
     player         = models.ForeignKey(Player,on_delete=models.CASCADE)
     team           = models.CharField(max_length=100)    

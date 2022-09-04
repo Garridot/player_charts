@@ -32,7 +32,7 @@ def search_players(request):
 def get_stats(request,player):
     player = Player.objects.get(name=player)
 
-    df = pd.DataFrame(Player_Team_Stats.objects.all().values()) 
+    df = pd.DataFrame(Player_Stats_by_Season.objects.all().values()) 
     df = df[df['player_id'] == player.id]
 
     context = {}
@@ -86,7 +86,7 @@ def goals_involvements_season(request,player,team):
         stats = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player,team=team).values())        
 
     # group by season all stats
-    df = stats.groupby(['season']).sum()
+    df = stats.groupby(['season']).sum()    
 
     context = {}     
         

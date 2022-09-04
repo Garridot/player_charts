@@ -2,5 +2,5 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('url_player',Get_Url_Scraping)
+    path('url_player',get_url_scraping)
 ]
