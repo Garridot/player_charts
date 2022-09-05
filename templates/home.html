@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% block title %}Football Player Charts{% endblock %}
+
+
 <style>
      main{
         background-image: url(/static/banner.jpg);
@@ -85,7 +88,10 @@
         <div class="col"><p style="text-align: center;">Football Player Charts is a football statistics website where you will find information, statistics, and charts that show how influenced a player in each team he played.</p></div>        
     </div>
     <section class="players" style="width: 90%; margin:auto;">
-        <p>PLAYERS</p>
+        <div class="title-p" style="display: flex; justify-content: space-between;">
+            <p>PLAYERS</p>
+            <p style="font-size: small;text-decoration: underline;"><a href="{% url 'players' %}">VIEW MORE</a></p>
+        </div>        
         <ul class='row'>
             <div class="col">
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.0.name %}">{{Players.0.name}}</a></li>

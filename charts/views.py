@@ -1,3 +1,4 @@
+from multiprocessing import context
 from optparse import Values
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -17,6 +18,12 @@ def home(request):
     context = {}
     context['Players'] = Player.objects.all()        
     return render(request,'home.html',context)
+
+def players(request):
+    players = Player.objects.all()
+    context = {'players':players}
+    return render(request,'players.html',context)
+
 
 def search_players(request):
     if request.method == 'POST':

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block title %}Football Player Charts | Players {% endblock %}
+<style>
+    ul li {
+    padding: 1rem 0;
+    }
+    @media(max-width:800px){
+        ul{
+            display: block !important;
+            padding: 0;
+        }
+        ul .col{
+            padding: 0;
+            text-align: start !important;
+        }
+    }
+</style>
+<section class="players" style="width: 90%; margin:auto;">
+    <div class="title-p" style="display: flex; justify-content: space-between;">
+        <p>PLAYERS</p>
+    </div>        
+    <ul class='row' style="margin: 5rem 0 0 0;">        
+        <div class="col"> 
+            {% for player in players %}{% if forloop.counter <= 5 %} 
+                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
+            {% endif %}{% endfor %} 
+        </div> 
+        <div class="col" style="text-align: center;"> 
+            {% for player in players %}{% if forloop.counter > 5 and forloop.counter <= 10 %} 
+                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
+            {% endif %}{% endfor %} 
+        </div> 
+        <div class="col" style="text-align: end;"> 
+            {% for player in players %}{% if forloop.counter > 10 %} 
+                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
+            {% endif %}{% endfor %} 
+        </div> 
+       
+    </ul>
+</section>
+{% endblock %}

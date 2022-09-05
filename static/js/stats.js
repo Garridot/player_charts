@@ -28,12 +28,11 @@ function get_path(path){
 }
 
 function get_general_stats(path,team){  
-    fetch( `/general_stats${path}/${team}` ,{                            
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',                
-                'X-CSRFToken' : getCookie('csrftoken')          
-            },             
+    fetch( `/general_stats${path}/${team}` ,{ 
+        headers:{
+            'Content-Type':'application/json',                
+            'X-CSRFToken' : getCookie('csrftoken')          
+        },             
         })
     .then((response)=>{ return response.json();}) 
     .then(result => {
@@ -68,7 +67,7 @@ function render_stats(data){
 
 function get_gls_as_season(path,team){
     fetch( `/goals_involvements_season${path}/${team}` ,{                            
-            method:'POST',
+            method:'POST',            
             headers:{
                 'Content-Type':'application/json',                
                 'X-CSRFToken' : getCookie('csrftoken')          
@@ -205,7 +204,7 @@ function render_gls_as_season(res){
 
 function get_goal_involvements(path,team){
     fetch( `/goal_involvements_rate${path}/${team}` ,{                            
-            method:'POST',
+            method:'POST',                    
             headers:{
                 'Content-Type':'application/json',                
                 'X-CSRFToken' : getCookie('csrftoken')          
@@ -219,7 +218,6 @@ function get_goal_involvements(path,team){
         
     })
 }
-
 let myBar;
 function render_goal_involvements(res){
         
@@ -291,7 +289,7 @@ function render_goal_involvements(res){
 
 function get_performance_competition(path,team){
     fetch( `/performance_competition${path}/${team}` ,{                            
-        method:'POST',
+        method:'POST',         
         headers:{
             'Content-Type':'application/json',                
             'X-CSRFToken' : getCookie('csrftoken')          
@@ -304,7 +302,6 @@ function get_performance_competition(path,team){
             
     })
 }
-
 function render_table(res){
 
     let tbody =  document.querySelector('.tbody')
@@ -332,7 +329,7 @@ function render_table(res){
 
 function get_rate_goals(path,team){  
     fetch( `/goals_involvements_overall_rate${path}/${team}` ,{                            
-            method:'POST',
+            method:'POST',            	 
             headers:{
                 'Content-Type':'application/json',                
                 'X-CSRFToken' : getCookie('csrftoken')          

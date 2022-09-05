@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% block title %}Football Player Charts | {{player.name}}{% endblock %}
 <style>
     ul.menu-toggle li{
         width: 95% !important;
+        padding: 1rem 0;
     }
-    main{
+    main{      
         background: url({{player.picture.url}});
         background-position: 0% 9%;
         background-size: cover;

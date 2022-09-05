@@ -5,6 +5,7 @@ from .views import *
 urlpatterns = [
     path('',home,name='home'),
     path('search',search_players,name='search_players'),
+    path('players',players,name='players'),
     path('<str:player>',get_stats,name='get_stats'),
     path('general_stats/<str:player>/<str:team>',general_stats,name='general_stats'),    
     path('goals_involvements_season/<str:player>/<str:team>',goals_involvements_season,name='goals_involvements_season'), 
