@@ -10,6 +10,7 @@ def location_media(instance,filename):
 class Player(models.Model):
     name        = models.CharField(max_length=200)
     nationality = models.CharField(max_length=200)
+    age         = models.IntegerField(default=0) 
     picture     = models.ImageField(blank=True,null=True, upload_to=location_media) 
 
     def __str__(self):

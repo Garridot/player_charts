@@ -1,5 +1,5 @@
 from multiprocessing import context
-from optparse import Values
+from os import stat
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -8,6 +8,8 @@ from django.shortcuts import render
 from web_scraping.views import *
 from database.models import *
 import pandas as pd
+
+from .utils import * 
 
 from django.db.models import Q
 
@@ -54,6 +56,7 @@ def general_stats(request,player,team):
     player = Player.objects.get(name=player)
 
     context = {}
+    context['player']    = player.name
     context['Goals']     = 0
     context['Assists']   = 0
     context['Matches']   = 0    
@@ -202,3 +205,153 @@ def goals_involvements_overall_rate(request,player,team):
     return Response(context)     
 
     
+def player_comparison(request):
+    players = Player.objects.all()
+    context = {}
+    context['players'] = players
+
+    if request.method == 'POST':
+        first_player  = Player.objects.get(name=request.POST['first_player'])
+        second_player = Player.objects.get(name=request.POST['second_player'])
+        context['first_player']  = first_player
+        context['second_player'] = second_player       
+        return render(request,'player_comparison.html',context)
+
+    return render(request,'player_comparison.html',context)
+
+
+
+@api_view(['GET', 'POST'])
+def goal_involvements_players(request,first_player,second_player):
+
+    # return the rate of goals involvements by season  
+      
+    player_1 = Player.objects.get(name=first_player) 
+    player_2 = Player.objects.get(name=second_player)
+
+    df  = pd.DataFrame(Player_Stats_by_Season.objects.filter(player__in=[player_1,player_2]).values())    
+
+    df_p1 = df[df['player_id'] == player_1.id]
+    df_p2 = df[df['player_id'] == player_2.id]
+
+    stats_1  = get_goal_involvements_rate(df_p1)
+    stats_2  = get_goal_involvements_rate(df_p2)
+
+    stats_1['goal_involvements_rate_player1'] = stats_1.pop('goal_involvements_rate')
+    stats_2['goal_involvements_rate_player2'] = stats_2.pop('goal_involvements_rate')
+
+    stats = pd.DataFrame(stats_1).append(pd.DataFrame(stats_2),ignore_index=True).groupby(['seasons']).sum() 
+
+    context = {}
+    context['seasons'] = stats.index.tolist()
+    context['player1'] = player_1.name   
+    context['player2'] = player_2.name 
+    context['goal_involvements_rate_player1'] = stats['goal_involvements_rate_player1']
+    context['goal_involvements_rate_player2'] = stats['goal_involvements_rate_player2']
+
+    return Response(context)  
+    
+
+    print(stats)
+
+@api_view(['GET', 'POST'])
+def performance_competition_players(request,first_player,second_player):
+
+    player_1 = Player.objects.get(name=first_player) 
+    player_2 = Player.objects.get(name=second_player)
+
+    df1  = pd.DataFrame(Player_Stats_by_Season.objects.filter(player__in=[player_1]).values()) 
+    df2  = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player_2,competition__in=df1['competition'].unique().tolist()).values())
+
+    df_1 = df1[['competition', 'goals',  'assists',  'games']]    
+    dict_1 = {'competition':'competition','goals':'goals_player1','assists':'assists_player1','games':'games_player1'}
+    df_1.rename(columns=dict_1,inplace=True)    
+    
+    df_2 = df2[['competition', 'goals',  'assists',  'games']]
+    dict_2 = {'competition':'competition','goals':'goals_player2','assists':'assists_player2','games':'games_player2'}
+    df_2.rename(columns=dict_2,inplace=True)
+
+    df = df_1.append(df_2).groupby(['competition']).sum()
+    
+    df = df.loc[(df['games_player1'] != 0) & (df['games_player2'] != 0)]
+
+    
+    
+    dic_player_1 = {}
+
+    dic_player_1['competitions'] = df.index.unique().to_list() 
+    dic_player_1['games']       = df['games_player1'].values.tolist() 
+    dic_player_1['goals']       = df['goals_player1'].values.tolist() 
+    dic_player_1['assists']     = df['assists_player1'].values.tolist() 
+
+    dic_player_2 = {}
+
+    dic_player_2['competitions'] = df.index.unique().to_list() 
+    dic_player_2['games']       = df['games_player2'].values.tolist() 
+    dic_player_2['goals']       = df['goals_player2'].values.tolist() 
+    dic_player_2['assists']     = df['assists_player2'].values.tolist() 
+
+    return Response({'player_1': dic_player_1,'player_2':dic_player_2})    
+
+
+@api_view(['GET', 'POST'])
+def goals_by_age(request,first_player,second_player):
+
+    player_1 = Player.objects.get(name=first_player) 
+    player_2 = Player.objects.get(name=second_player)
+
+    df1 = pd.DataFrame(Player_Stats_by_Season.objects.filter(player__in=[player_1]).values())
+    df2 = pd.DataFrame(Player_Stats_by_Season.objects.filter(player__in=[player_2]).values())  
+    
+    ages_p1 = get_ages(df1,player_1.age)
+    ages_p2 = get_ages(df2,player_2.age)  
+
+
+    goals_p1 = []
+    goals_p2 = []
+
+    goals  = 0
+    goals2 = 0
+
+    for i in df1.groupby(['season']).sum()['goals']: 
+        goals += i
+        goals_p1.append(goals)
+
+    for i in df2.groupby(['season']).sum()['goals']: 
+        goals2 += i
+        goals_p2.append(goals2)
+
+    dic_player1 = {'goals_p1':goals_p1,'age':ages_p1[::-1]} 
+    dic_player2 = {'goals_p2':goals_p2,'age':ages_p2[::-1]}     
+
+    df = pd.DataFrame(dic_player1)
+    df = df.append(pd.DataFrame(dic_player2)).groupby(['age']).sum()
+
+    
+    context = {}
+    context['ages']     = df.index.tolist()
+    context['p1']       = player_1.name 
+    context['goals_p1'] = df['goals_p1']
+    context['p2']       = player_2.name 
+    context['goals_p2'] = df['goals_p2']
+
+    return Response(context)
+
+    
+
+    
+
+
+
+   
+
+
+    
+
+   
+
+
+    
+
+
+

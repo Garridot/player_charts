@@ -13,19 +13,7 @@ a{
 a:hover{
     color: rgb(146, 146, 146); 
 }
-/* header{
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-}
-.nav{
-    width: 90%;
-    margin: auto;
-    padding:  5rem 0 0;    
-    z-index: 2; 
-    display: flex;
-    justify-content: space-between;
-} */
+
 header{
     width: 100%;   
     padding:  2rem 0 0; 
@@ -54,45 +42,6 @@ header .title h3{
            
     }   
 }
-/* .menu i{
-    color:#aaa;
-    font-size: x-large;
-    cursor: pointer;
-}
-.menu_list{    
-    height: 100vh;
-    position: fixed;
-    width: 100%;   
-    z-index: -1; 
-    background: rgb(165,0,68);
-    background: linear-gradient(90deg, rgba(165,0,68,0) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,1) 100%);
-    left: 100%;
-    transition: all 1s;
-    top: 0;
-}
-.menu_list.show{
-    left: 0%;
-}
-
-.menu_list ul{
-    width: 89%;
-    margin: auto;
-    margin-top: 12rem;
-}
-
-.menu_list ul li{
-    margin: 2rem 0;
-    list-style: none;
-    text-align: end;
-}
-
-.menu_list ul li a{
-    text-decoration: none ;
-    color: #aaa;
-    font-size: x-large;
-    letter-spacing: 1px;
-
-} */
 
 
 main{
@@ -191,7 +140,9 @@ ul.menu-toggle li{
     color: #aaa;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    font-weight: 600;
 }
+
 
 ul.menu-toggle li form input{
     background:  #030303;

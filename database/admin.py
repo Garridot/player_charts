@@ -3,7 +3,7 @@ from .models import *
 # Register your models here.
 
 class PlayersAdmin(admin.ModelAdmin):
-    list_display  = ('id','name','nationality')    
+    list_display  = ('id','name','age','nationality')    
     search_fields = ('name',)
 
 
