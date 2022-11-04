@@ -1,0 +1,149 @@
+ul.menu-toggle li{
+    width: 95% !important;
+    padding: 1rem 0;
+}
+
+.player_name{
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}    
+.player_name h1{
+    text-transform: uppercase;
+    font-size: 8rem; 
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 0.1vw white;
+}
+div.main_title{
+    width: 95%;
+    margin:auto;
+    padding:5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;        
+}
+.main_title h1{
+    font-weight: 600;          
+         
+}
+.rate_date{        
+    justify-content: space-between;
+    align-items: end;
+    display: flex;
+   
+}
+.goals_charts{
+    width: 100%;
+}
+.ratio_goals_stats{
+    padding: 0 1rem;
+    width: 100%;
+}
+.ratio_goals_stats span h2{
+    border-bottom: 1px solid #aaa;
+    line-height: 2 !important;        
+    font-size: revert;
+    margin: 26.56px 0 !important;
+
+}
+select.filters{        
+    font-size: x-large;    
+    color: #aaa;
+    background: #030303;        
+    padding: 1rem;        
+    }
+tr th{
+    padding: 0.5rem !important;
+    color: #aaa;
+    font-size:small;
+}   
+@media(max-width:800px){
+    main{
+        background-position-x: 40%;
+    }
+    .main_title{
+        display:block !important;
+        text-align:end !important;
+        padding:3rem 0 !important;
+    }
+    .main_title h1{
+        font-size: 2rem !important;
+        padding: 0 .5rem 2rem !important;
+    }
+    select.filters{
+        padding:.5rem;
+    } 
+    .rate_date{
+        display: block;
+    }        
+    .goals_charts{
+        width: 90%;
+        margin: auto;
+        padding: 5rem 0 0;
+    }
+    canvas{
+        height: 100vh !important;
+    }     
+}  
+
+.title__competition{
+    text-align: center;
+    text-transform: uppercase;
+} 
+.title__competition h2{
+    padding: 1rem;
+    background: #151515;
+    font-weight: 600;
+}
+
+.stats{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin: 5rem 0;
+}
+
+.stats .player__{
+    font-size: xx-large;
+}
+
+.player__  .player__data{
+    color: #aaa;
+    margin: 2rem 0;
+    font-weight: 600;
+    display: flex;
+    align-items: baseline;
+} 
+
+.player__  .player__data span{   
+    background: #151515;
+    padding: 1rem 1rem;
+    margin: 0 2rem;
+    text-align: center;
+}  
+
+@media(max-width:800px){
+    .title__players{        
+        font-size: small;
+        top: 7% !important;
+    }
+    .title__players h3 {        
+        font-size: small;
+    }
+
+    .table{
+        font-size: small;
+    }
+    .title__competition h2 {       
+        font-size: medium;
+    }
+    .player__ .player__data {        
+        font-size: small;
+    }
+    .player__ .player__data span {        
+        margin: 0 !important;
+    }
+    
+}

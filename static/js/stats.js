@@ -304,22 +304,39 @@ function get_performance_competition(path,team){
 }
 function render_table(res){
 
-    let tbody =  document.querySelector('.tbody')
-    var table =  document.querySelector('.table')
+    
+    let table =  document.querySelector('.competitions')
         
-    while (tbody.hasChildNodes()){                
-        tbody.removeChild(tbody.lastChild);}
+    while (table.hasChildNodes()){                
+        table.removeChild(table.lastChild);}
     
     for (i in res.Competition){
-        tbody.innerHTML += `
-        <tr>
-            <th scope="col">${res.Competition[i]}</th>
-            <th scope="col">${res.games[i]}</th>
-            <th scope="col">${res.goals[i]}</th>
-            <th scope="col">${res.assists[i]}</th>
-            <th scope="col">${res.performance[i]}%</th>
-        </tr>
+
+        table.innerHTML += 
         `
+            <span class='title__competition'><h2>${res.Competition[i]}</h2></span>
+            <div class='stats'>
+                <div class='player__'>                    
+                    <div class='player__data row'>
+                        <span class='col'>${res.games[i]}</span>
+                        <label class='col'>GAMES</label>
+                    </div> 
+                    <div class='player__data row'>
+                        <span class='col'>${res.goals[i]}</span>
+                        <label class='col'>GOALS</label>                        
+                    </div>  
+                    <div class='player__data row'>
+                        <span class='col'>${res.assists[i]}</span>
+                        <label class='col'>ASSISTS</label>                        
+                    </div>    
+                    <div class='player__data row'>
+                        <span class='col'>${res.performance[i]} %</span>
+                        <label class='col'>DIRECT PARTICIPACION</label>
+                    </div>                                     
+                </div>                
+            </div>
+        `
+        
     }     
     
     
