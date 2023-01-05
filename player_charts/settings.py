@@ -1,23 +1,29 @@
 
 from pathlib import Path
+import environ
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
-
-
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+^c&+qu=_!hs_arm30ydw2)hp8)xn!zei&&irf8)(ss2x)8h5r'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG',cast=bool)
+
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,11 +93,11 @@ WSGI_APPLICATION = 'player_charts.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd9nh7b26ailqen',
-        'USER': 'tnubdayzkagykc',
-        'PASSWORD': 'd32abe5004f83873d937a218e99b1f48f7e0b7d0964ba65b5689dea5e6d28d41',
-        'HOST': 'ec2-44-206-89-185.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 

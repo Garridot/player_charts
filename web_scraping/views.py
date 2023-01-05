@@ -228,7 +228,7 @@ def update_players():
         'https://www.transfermarkt.com/cristiano-ronaldo/leistungsdaten/spieler/8198',    
         # Ibrahimovic's Stats
         'https://www.transfermarkt.com/zlatan-ibrahimovic/leistungsdaten/spieler/3455',
-        # #Suarez's Stats
+        # Suarez's Stats
         'https://www.transfermarkt.com/luis-suarez/leistungsdaten/spieler/44352',
         # Lewandowski's Stats
         'https://www.transfermarkt.com/robert-lewandowski/leistungsdaten/spieler/38253',  

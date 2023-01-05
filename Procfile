@@ -1,1 +1,0 @@
-web: gunicorn player_charts.wsgi
