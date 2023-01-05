@@ -98,8 +98,7 @@ tr th{
     font-weight: 600;
 }
 
-.stats{
-    display: flex;
+.stats{    
     width: 100%;
     justify-content: space-around;
     margin: 5rem 0;
