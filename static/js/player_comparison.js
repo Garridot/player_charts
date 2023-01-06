@@ -20,6 +20,10 @@ function get_players(first_player,second_player){
     get_goal_involvements(first_player,second_player)
     get_performance_competition(first_player,second_player)   
     get_goals_by_age(first_player,second_player)
+
+    document.querySelector('#stats_1').style.display = 'none'
+    document.querySelector('#stats_2').style.display = 'none'
+    document.querySelector('.player_comparison').style.display = 'none'
 }
 
 
@@ -52,51 +56,51 @@ function get_general_stats(first_player,second_player){
     
 }
 function render_general_stats(player_1,player_2){
-    var stats_ = document.querySelector('.general_stats')    
 
+
+    document.querySelector('#stats_1').querySelector('.main_title').innerHTML = `<h1 style="font-size: 6rem;">${player_1.player}</h1>`
+
+    var stats_ = document.querySelector('#stats_1').querySelector('.general')
+    
     stats_.innerHTML = `
-        <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Overall</th>
-                <th scope="col" class="text-center">${player_1.player}</th>
-                <th scope="col" class="text-end">${player_2.player}</th>                           
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <tr>
-                <th scope="row">Matches</th>
-                <td class='text-center'>${player_1.Matches}</td>
-                <td class="text-end">${player_2.Matches}</td>                
-            </tr>
-            <tr>
-                <th scope="row">Goals</th>
-                <td class='text-center'>${player_1.Goals}</td>
-                <td class="text-end">${player_2.Goals}</td>                
-            </tr> 
-            <tr>
-                <th scope="row">Ratio goals</th>
-                <td class='text-center'>${player_1.Ratio_gls} %</td>
-                <td class="text-end">${player_2.Ratio_gls} %</td>                
-            </tr>    
-            <tr>
-                <th scope="row">Assists</th>
-                <td class='text-center'>${player_1.Assists}</td>
-                <td class="text-end">${player_2.Assists}</td>                
-            </tr>               
-            <tr>
-                <th scope="row">Ratio assists</th>
-                <td class='text-center'>${player_1.Ratio_ass} %</td>
-                <td class="text-end">${player_2.Ratio_ass} %</td>                
-            </tr>   
-            <tr>
-                <th scope="row">Goal involvements</th>
-                <td class='text-center'>${player_1.rate_involvement} %</td>
-                <td class="text-end">${player_2.rate_involvement} %</td>                
-            </tr>                                   
-        </tbody>                   
+    <span>
+        <h2>GOALS : ${player_1.Goals} </h2><h5>(${player_1.Ratio_gls} per game)</h5>     
+    </span>
+    <span>           
+        <h2>ASSISTS : ${player_1.Assists}</h2> <h5>(${player_1.Ratio_ass} per game)</h5>    
+    </span>         
+    <span style='font-size: revert;'>
+        <h2>INVOLVEMENTS PERCENTAGES:</h2>  <h2>${player_1.rate_involvement} %</h2>     
+    </span>` ;
+
+    document.querySelector('#stats_1').querySelector('.involvement').innerHTML = `
+    <span>      
+        <h2>${player_1.Matches} : MATCHES</h2> 
+    </span>
+    
     ` 
-    // document.querySelector('.page_loader').style.display  = 'none'
+
+    document.querySelector('#stats_2').querySelector('.main_title').innerHTML = `<h1 style="font-size: 6rem;">${player_2.player}</h1>`
+
+    var stats_2 = document.querySelector('#stats_2').querySelector('.general')
+    
+    stats_2.innerHTML = `
+    <span>
+        <h2>GOALS : ${player_2.Goals} </h2><h5>(${player_2.Ratio_gls} per game)</h5>     
+    </span>
+    <span>           
+        <h2>ASSISTS : ${player_2.Assists}</h2> <h5>(${player_2.Ratio_ass} per game)</h5>    
+    </span>         
+    <span style='font-size: revert;'>
+        <h2>INVOLVEMENTS PERCENTAGES:</h2>  <h2>${player_2.rate_involvement} %</h2>     
+    </span>` ;
+
+    document.querySelector('#stats_2').querySelector('.involvement').innerHTML = `
+    <span>      
+        <h2>${player_2.Matches} : MATCHES</h2> 
+    </span>
+    
+    ` 
 } 
 
 
@@ -215,51 +219,66 @@ function get_performance_competition(first_player,second_player){
 }
 function render_performance_competition(data){
     var table = document.querySelector('.competitions')
+    
 
     data.player_1.competitions.map(function(e, i) {
+        
 
         table.innerHTML += 
         `
-            <span class='title__competition'><h2>${e}</h2></span>
-            <div class='stats'>
-                <div class='player__'>                    
-                    <div class='player__data'>
-                        <span>${data.player_1.goals[i]}</span>
-                        <label>GOALS</label>
-                    </div> 
-                    <div class='player__data'>
-                        <span>${data.player_1.assists[i]}</span>
-                        <label>ASSISTS</label>
-                    </div>  
-                    <div class='player__data'>
-                        <span>${data.player_1.games[i]}</span>
-                        <label>GAMES</label>
-                    </div>                                     
-                </div>
+
+        <div class="section__competitions" >
+            <span class='title__competition'><h2>${e}</h2></span> 
+            <div class="stats">
                 <div class='player__'>
+                    <span class="player__name"><h4>${data.player_1.name}</h4></span>
                     <div class='player__data'>
-                        <span>${data.player_2.goals[i]}</span>
-                        <label>GOALS</label>
-                    </div> 
-                    <div class='player__data'>
-                        <span>${data.player_2.assists[i]}</span>
-                        <label>ASSISTS</label>
-                    </div>
-                    <div class='player__data'>
-                        <span>${data.player_2.games[i]}</span>
-                        <label>GAMES</label>
-                    </div>                    
-                                           
+                        <div class="boxes">
+                            <span>
+                                <h3>${data.player_1.games[i]}</h3>
+                                <label>APPS</label>
+                            </span>
+                            <span>
+                                <h3>${data.player_1.assists[i]}</h3>
+                                <label>ASSISTS</label>
+                            </span>
+                            <span>
+                                <h3>${data.player_1.goals[i]}</h3>
+                                <label>GOALS</label>
+                            </span>
+                        </div>   
+                                    
+                    </div>  
                 </div>
+                <div class='player__2'>
+                    <span class="player2__name"><h4>${data.player_2.name}</h4></span>
+                    <div class='player2__data'>
+                        <div class="boxes">
+                            <span>
+                                <h3>${data.player_2.goals[i]}</h3>
+                                <label>GOALS</label>
+                            </span>
+                            <span>
+                                <h3>${data.player_2.assists[i]}</h3>
+                                <label>ASSISTS</label>
+                            </span>
+                            <span>
+                                <h3>${data.player_2.games[i]}</h3>
+                                <label>APPS</label>
+                            </span>
+                        </div>
+                                        
+                    </div>  
+                </div>    
             </div>
-        `
-
-        // return [data.player_1.games[i],data.player_1.goals[i],data.player_1.assists[i], e, data.player_2.games[i],data.player_2.goals[i],data.player_2.assists[i]];
+        </div>            
+        `        
     });
-
-   
     
-    
+    document.querySelector('#stats_1').style.display = 'block'
+    document.querySelector('#stats_2').style.display = 'block'
+    document.querySelector('.player_comparison').style.display = 'block'
+    document.querySelector('.page_loader').style.display  = 'none'
 }
 
 

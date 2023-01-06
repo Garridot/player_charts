@@ -4,12 +4,6 @@
 {% block title %}Football Player Charts | Player Comparison {% endblock %}
 <link rel="stylesheet" href="{% static 'css/player_comparison.css' %}">
 <link rel="stylesheet" href="{% static 'css/loader.css' %}">  
-{% if first_player and second_player %}
-<div class="title__players">
-    <h3>{{first_player.name}}</h3>
-    <h3>{{second_player.name}}</h3>
-</div>
-{% endif %}
 
 <section class="form_comparison" style='padding: 20rem 0;'>
     <form method="POST">
@@ -39,19 +33,37 @@
 </section>
 
 {% if first_player and second_player %}
+<style>
+    .form_comparison{
+        display: none;
+    }
+</style>
 <script>
     window.onload = function(event){
         get_players(first_player='{{first_player.name}}',second_player='{{second_player.name}}');
     }
 </script>
-<!-- <div class="page_loader">
+<div class="page_loader">
     <div class="lds-roller"><div></div><div></div><div></div><div></div></div>    
-</div> -->
-
-<div class="player_banner">   
 </div>
-<section class="player_comparison">
-    <div class="general_stats"></div> 
+
+<section id="stats_1" class="stats__">
+    <div class="main_title"></div>
+    <div class="data">
+        <div class="general"></div>  
+        <div class="involvement"> </div> 
+    </div>     
+</section> 
+
+<section id="stats_2" class="stats__">
+    <div class="main_title"></div>
+    <div class="data">
+        <div class="general"></div>  
+        <div class="involvement"> </div>  
+    </div>    
+</section> 
+
+<section class="player_comparison">    
     <div class="goals_involvements">
         <canvas id="involvements_chart" height="600"></canvas>
     </div>   

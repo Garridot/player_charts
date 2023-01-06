@@ -2,24 +2,6 @@
     width: 90% !important;   
 }
 
-
-.title__players{
-    display: flex;
-    justify-content: space-between;
-    position: fixed;
-    top: 8%;
-    width: 90%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    padding: 3rem 1rem 0;
-    background: #030303;
-    text-transform: uppercase;
-}
-.title__players h3{
-    font-weight: 600;
-}
-
 form .selects{
     display: flex;
 }
@@ -60,73 +42,129 @@ form .selects select option{
 }
 
 
-.player_comparison{
-    width: 90% !important;    
-}
-.player_comparison .general_stats,.goals_involvements,.competitions, .goals_by_age{
-    margin: 0 0 10rem;
-}
-
-.table{
-    color: #aaa;
-    background: #151515;
-    font-weight: 600;
-}
-
-
-.title__competition{
-    text-align: center;
-    text-transform: uppercase;
-} 
-.title__competition h2{
-    padding: 1rem;
-    background: #151515;
-    font-weight: 600;
-}
-
-.stats{
+div.main_title{
+    width: 95%;
+    margin:auto;
+    padding:5rem 0;
     display: flex;
+    justify-content: space-between;
+    align-items: center;        
+}
+.main_title h1{
+    font-weight: 600;          
+         
+}
+
+
+.data{
+    display: flex;    
+    justify-content: space-between;
+    padding: 0 0 5rem  ;
+}
+.stats__ div{
+    padding: 0 1rem ;
+    width: 100%;
+}
+.stats__ span{    
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid #aaa;    
+}
+.stats__ span h2,
+.stats__ span h5{
+    line-height: 2 !important;
+    margin: 26.56px 0 !important;
+    font-size: revert;
+}
+
+.stats__ .involvement span{
+    justify-content: end;
+}
+
+@media(max-width:1000px){
+    .data{
+        display: block;
+    }
+}
+
+@media(max-width:800px){    
+    .main_title{
+        display:block !important;
+        text-align:end !important;
+        padding:3rem 0 !important;
+    }
+    .main_title h1{
+        font-size: 2rem !important;
+        padding: 0 .5rem 2rem !important;
+    }
+}
+
+
+
+.stats_1, .stats_2{    
     width: 100%;
     justify-content: space-around;
     margin: 5rem 0;
 }
 
-.stats .player__{
+
+
+
+
+.section__competitions{
+    color:white ; text-align: center; margin: 5rem 0;
+}
+.section__competitions h2{
+    margin: 2rem 0;
+}
+.stats{
+    display: inline-flex; background: #151515;
+}
+.player__,.player__2{
+    font-size: large;
+}
+.boxes{
+    display: flex;
     font-size: xx-large;
 }
-
-.player__  .player__data{
-    color: #aaa;
-    margin: 2rem 0;
-    font-weight: 600;
-} 
-
-.player__  .player__data span{   
-    background: #151515;
-    padding: 1rem 1rem;
-    margin: 0 2rem;
-}  
-
-@media(max-width:800px){
-    .title__players{        
-        font-size: small;
-        top: 7% !important;
-    }
-    .title__players h3 {        
-        font-size: small;
-    }
-
-    .table{
-        font-size: small;
-    }
-    .title__competition h2 {       
-        font-size: medium;
-    }
-    .player__ .player__data {        
-        font-size: small;
-    }
-    .player__ .player__data span {        
-        margin: 0 !important;
-    }
-    
+.player__name h4{
+    color: rgba(168, 19, 62) !important;
 }
+
+.player2__name h4{
+    color: rgb(255, 217, 78) !important;
+}
+
+
+.player__data span{
+    padding: 0.5rem 1rem; background: rgba(168, 19, 62); margin: 0 1px; 
+}
+.player2__data span{
+    padding: 0.5rem 1rem; background: rgba(237, 187, 0); margin: 0 1px; 
+}
+
+.boxes span h3{
+    font-size: xx-large; color: white !important;
+}
+
+@media(max-width:900px){
+    .boxes{        
+        font-size: large;
+    }    
+}
+
+@media(max-width:600px){
+    .stats {
+        display: inline-block;        
+    }
+    .boxes{        
+        font-size: smaller;
+    }   
+    .player__, .player__2 {
+        font-size: smaller;
+    } 
+}
+
+
+

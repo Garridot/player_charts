@@ -280,9 +280,10 @@ def performance_competition_players(request,first_player,second_player):
     dic_player_1 = {}
 
     dic_player_1['competitions'] = df.index.unique().to_list() 
-    dic_player_1['games']       = df['games_player1'].values.tolist() 
-    dic_player_1['goals']       = df['goals_player1'].values.tolist() 
-    dic_player_1['assists']     = df['assists_player1'].values.tolist() 
+    dic_player_1['games']        = df['games_player1'].values.tolist() 
+    dic_player_1['goals']        = df['goals_player1'].values.tolist() 
+    dic_player_1['assists']      = df['assists_player1'].values.tolist()
+    dic_player_1['name']         = player_1.name 
 
     dic_player_2 = {}
 
@@ -290,6 +291,7 @@ def performance_competition_players(request,first_player,second_player):
     dic_player_2['games']       = df['games_player2'].values.tolist() 
     dic_player_2['goals']       = df['goals_player2'].values.tolist() 
     dic_player_2['assists']     = df['assists_player2'].values.tolist() 
+    dic_player_2['name']         = player_2.name 
 
     return Response({'player_1': dic_player_1,'player_2':dic_player_2})    
 

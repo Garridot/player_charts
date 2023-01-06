@@ -31,8 +31,7 @@ div.main_title{
 .rate_date{        
     justify-content: space-between;
     align-items: end;
-    display: flex;
-   
+    display: flex;   
 }
 .goals_charts{
     width: 100%;
