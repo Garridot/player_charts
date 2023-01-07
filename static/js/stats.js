@@ -316,26 +316,29 @@ function render_table(res){
         `
             <span class='title__competition'><h2>${res.Competition[i]}</h2></span>
             <div class='stats'>
-                <div class='player__'>                    
-                    <div class='player__data row'>
-                        <span class='col'>${res.games[i]}</span>
-                        <label class='col'>GAMES</label>
+                <div class='player__'>   
+                    <div class='boxes__'>                 
+                        <div class='player__data row'>
+                            <span class='col'>${res.games[i]}</span>
+                            <label class='col'>GAMES</label>
+                        </div> 
+                        <div class='player__data row'>
+                            <span class='col'>${res.goals[i]}</span>
+                            <label class='col'>GOALS</label>                        
+                        </div>  
+                        <div class='player__data row'>
+                            <span class='col'>${res.assists[i]}</span>
+                            <label class='col'>ASSISTS</label>                        
+                        </div>
                     </div> 
-                    <div class='player__data row'>
-                        <span class='col'>${res.goals[i]}</span>
-                        <label class='col'>GOALS</label>                        
-                    </div>  
-                    <div class='player__data row'>
-                        <span class='col'>${res.assists[i]}</span>
-                        <label class='col'>ASSISTS</label>                        
-                    </div>    
-                    <div class='player__data row'>
+                    <div class='player__g_a'>
                         <span class='col'>${res.performance[i]} %</span>
                         <label class='col'>DIRECT PARTICIPACION</label>
-                    </div>                                     
-                </div>                
-            </div>
-        `
+                    </div>                          
+                </div>   
+                            
+            </div>        `
+        
         
     }     
     

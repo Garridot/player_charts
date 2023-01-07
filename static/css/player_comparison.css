@@ -151,10 +151,16 @@ div.main_title{
 @media(max-width:900px){
     .boxes{        
         font-size: large;
-    }    
+    }  
+    .player_comparison{
+        width: 100%;
+    }  
 }
 
 @media(max-width:600px){
+    .player_comparison{
+        width: 100%;
+    }
     .stats {
         display: inline-block;        
     }

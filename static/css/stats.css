@@ -104,23 +104,33 @@ tr th{
 }
 
 .stats .player__{
-    font-size: xx-large;
+    font-size: xx-large;    
+    text-align: center;
+    
+}
+
+.boxes__{
+    display: flex;    
+    justify-content: center;
 }
 
 .player__  .player__data{
     color: #aaa;
-    margin: 2rem 0;
+    background: #151515;
     font-weight: 600;
-    display: flex;
-    align-items: baseline;
+    display: block;
+    padding: 1rem 0;
+    text-align: center;
+    margin: 2rem 2px; 
+
 } 
 
-.player__  .player__data span{   
-    background: #151515;
-    padding: 1rem 1rem;
-    margin: 0 2rem;
-    text-align: center;
-}  
+.player__g_a{
+    color: #aaa;
+    margin: 2rem 0;
+}
+
+
 
 @media(max-width:800px){
     .title__players{        
@@ -137,11 +147,15 @@ tr th{
     .title__competition h2 {       
         font-size: medium;
     }
-    .player__ .player__data {        
+    .player__ .player__data, .player__g_a {        
         font-size: small;
     }
     .player__ .player__data span {        
         margin: 0 !important;
+    }
+
+    .stats {        
+        margin: 0 0 5rem 0;
     }
     
 }
