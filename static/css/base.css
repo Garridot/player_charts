@@ -16,7 +16,7 @@ a:hover{
 
 header{
     width: 100%;   
-    padding:  2rem 0 0; 
+    padding:  2rem 0 1rem; 
     position: fixed;
     z-index: 2; 
     background: #030303;    
@@ -26,6 +26,7 @@ header .title{
     margin: auto;
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
 } 
 header .title h3{
     text-transform: uppercase;
@@ -140,6 +141,7 @@ ul.menu-toggle li{
     color: #aaa;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    padding: 1rem 0;
     font-weight: 600;
 }
 
@@ -157,7 +159,7 @@ ul.menu-toggle li form button{
 
 @media(max-width:477px){
     ul.menu-toggle{        
-        top: 5rem;
+        top: 4.5rem;
     } 
 }
 @media(max-width:312px){
@@ -166,3 +168,38 @@ ul.menu-toggle li form button{
     } 
 }
 
+
+@media (max-width: 450px){
+    header .title h3 {
+        font-size: small !important;        
+    }
+    .menu i{
+        font-size: small !important; 
+    }
+    ul.menu-toggle.show {       
+        padding: 0 1rem;
+    }
+    ul.menu-toggle li form button {       
+        font-size: smaller;
+    }
+    ul.menu-toggle li form input {        
+        font-size: smaller;
+    }
+    ul.menu-toggle li {       
+        font-size: smaller;
+    }
+    .title_home h1, .title_home h1{        
+        font-size: xx-large !important;
+    }
+    .title_home p, .title_home p{        
+        font-size: small;
+    }
+    .players li{
+        font-size: larger !important;
+    }
+    footer h6{
+        font-size: small;
+    }
+}
+
+@media (max-width: 360px){}
