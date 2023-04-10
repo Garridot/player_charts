@@ -248,7 +248,7 @@ def update_players():
 
 
 
-update_players()
+# update_players()
 
 
 
