@@ -28,7 +28,7 @@ DEBUG = env('DEBUG',cast=bool)
 ALLOWED_HOSTS = ['*']
 
 
-
+CORS_ORIGIN_ALLOW_ALL = "*"
 
 CORS_ORIGIN_ALLOW_ALL  = True
 CORS_ALLOW_ALL_ORIGINS = True                         
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'corsheaders',
 
     # External apps
     'rest_framework',
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'player_charts.urls'

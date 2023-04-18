@@ -348,12 +348,13 @@ function render_table(res){
 
 
 function get_rate_goals(path,team){  
-    fetch( `/goals_involvements_overall_rate${path}/${team}` ,{                            
+    fetch( `/goals_involvements_overall_rate${path}/${team}` ,{  
             method:'POST',            	 
             headers:{
                 'Content-Type':'application/json',                
-                'X-CSRFToken' : getCookie('csrftoken')          
-            },             
+                'X-CSRFToken' : getCookie('csrftoken') ,
+            }, 
+            
         })
     .then((response)=>{ return response.json();}) 
     .then(result => {

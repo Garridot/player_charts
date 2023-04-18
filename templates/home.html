@@ -94,12 +94,25 @@
             <p style="font-size: small;text-decoration: underline;"><a href="{% url 'players' %}">VIEW MORE</a></p>
         </div>        
         <ul class='row'>
+            <script>                
+                console.log()
+            </script>
+            {% for player in Players %}
+            {% if forloop.counter <= 3 %}
             <div class="col">
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.0.name %}">{{Players.0.name}}</a></li>
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.1.name %}">{{Players.1.name}}</a></li>
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.2.name %}">{{Players.2.name}}</a></li>
+                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player}}</a></li>                
             </div> 
-            <div class="col" style="text-align: center;">
+            {% elif forloop.counter > 3 and  forloop.counter <= 6 %}
+            <div class="col">
+                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player}}</a></li>                
+            </div>             
+            {% elif forloop.counter > 6 and  forloop.counter <= 9 %}
+            <div class="col">
+                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player}}</a></li>                
+            </div> 
+            {% endif %}
+            {% endfor %}
+            <!-- <div class="col" style="text-align: center;">
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.3.name %}">{{Players.3.name}}</a></li>
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.4.name %}">{{Players.4.name}}</a></li>
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.5.name %}">{{Players.5.name}}</a></li>
@@ -108,7 +121,7 @@
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.6.name %}">{{Players.6.name}}</a></li>
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.7.name %}">{{Players.7.name}}</a></li>
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.8.name %}">{{Players.8.name}}</a></li>
-            </div> 
+            </div>  -->
         </ul>
     </section>
     <div class="title_home row">
