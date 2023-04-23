@@ -1,0 +1,390 @@
+main {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+
+@keyframes main-img{
+    from{transform: scale(1.2);}
+    to{transform: scale(1);}
+}
+
+.main-img::after{
+    /* background: linear-gradient(0deg,#0404069d 1%,transparent 100%); */
+    background: linear-gradient(0deg,#0404065e 1%,transparent 100%);
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    content: "";
+} 
+
+.main-text {
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    display: table;
+}
+
+.main-text span{
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.main-text h1 {
+    color: #cedddd;
+    font-family: "NeueMontreal-Italic";
+    letter-spacing: 20px;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+    line-height: .8;
+    font-size: 1.8vw;
+}
+
+@media (max-width:1000px) {
+    .main-text{
+        width: 90%;
+        margin: auto;
+    }
+    .main-text h1 {    
+        font-size: 1.5vw;
+        line-height: 2;
+    }
+}
+
+@media (max-width:600px) {
+    .main-text h1 {    
+        font-size: 2.5vw;
+    }
+}
+
+@media (max-width:450px) {
+    .main-text h1 {    
+        font-size: 3vw;
+        letter-spacing: 10px;
+    }
+}
+
+
+
+
+.home-data{   
+    height: 100%;
+    display: none;
+}
+
+.home-title{
+    width: 90%;
+    margin: auto;
+    height: 80vh;    
+    padding-top: 30vh;   
+}
+
+.home-title h1{
+    letter-spacing: 5px;
+}
+
+.home-title div:nth-child(1){
+    display: flex;
+    color: #c7c7c7;
+    align-items: baseline;
+    justify-content: center;
+    text-transform: uppercase;
+    font-family: "GoshaSans-Bold";
+    padding: 0 0 3vw 0;
+}
+
+.home-title div:nth-child(2) p{
+    color: #aaa;
+    font-size: 1vw;
+    text-align: center;    
+}
+
+
+@media(max-width:1200px){
+    .home-title div:nth-child(2) p {        
+        font-size: 1.2vw;    
+    }
+}
+@media (max-width: 1000px){
+    .home-title{
+        width: 80%;
+    }
+    .home-title h1 {
+        font-size: 3.5vw;
+    }
+    .home-title div:nth-child(2) p {
+        font-size: 1.5vw;
+    }
+}
+
+@media(max-width:1000px){
+    .home-title h1 {        
+        font-size: 3vw;
+    }  
+    home-title div:nth-child(2) p {       
+        font-size: 1.5vw;
+    }  
+}
+@media(max-width:700px){
+    
+    .home-title div:nth-child(1){
+        display: block;
+        text-align: center;
+    }
+    .home-title h1 {
+        font-size: 5vw;
+        letter-spacing: 10px;
+        text-align: start;
+    }
+    .home-title h6{
+        letter-spacing: 10px;
+        text-align: start;
+    }
+    .home-title div:nth-child(2) p {       
+        font-size: 2vw;
+        letter-spacing: 2px;
+        text-align: start;
+        
+    }
+}
+
+@media(max-width:600px){     
+    
+    .home-title h1 {
+        font-size: 8vw;
+        letter-spacing: 20px;
+    }
+    .home-title h6{
+        letter-spacing: 20px;
+    }
+
+    .home-title div:nth-child(2) p {       
+        font-size: 1.8vw;        
+        letter-spacing: 3px;
+        margin: 5vh 0;
+    }
+    
+}
+
+@media(max-width:500px){ 
+    .home-title div:nth-child(2) p {       
+        font-size: 2.5vw;        
+        letter-spacing: 1px;
+    }    
+}
+
+@media(max-width:400px){ 
+    .home-title div:nth-child(2) p {       
+        font-size: 3vw;        
+        letter-spacing: 1px;
+    }    
+}
+
+
+
+
+
+.home-players {
+    width: 90%;
+    margin: auto;
+    height: 80vh;
+}
+.homeplayers-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5vw;
+    font-family: "NeueMontreal-Light";
+    letter-spacing: 2px;
+}
+
+.homeplayers-title p{    
+    color: #cedddd;
+    text-transform: uppercase;
+    font-size: 1vw;
+}
+
+.homeplayers-title a{
+    font-size: 1vw;
+    text-decoration: underline;
+    color: #cedddd;
+}
+
+
+
+.players-table .col {
+    flex: 1 0 0%;
+    display: flex;
+    justify-content: space-between;
+}
+.players-table .row {
+    margin: 0 0 10vh;
+    width: 33.33333333%;
+}
+.players-table .row:nth-child(2){
+    width: 20%;
+}
+.players-table .row:nth-child(3){
+    text-align: end;
+}
+
+.players-table a {
+    color: #cedddd;
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-family: "NeueMontreal-Light";
+    font-size: 1.2vw;
+    transition: all .5s;
+}
+.players-table a:hover{
+    color: #aaa;
+}
+
+@media(max-width:1000px){
+    .home-players {
+        width: 80%;        
+        height: 100%;
+    }
+}
+
+@media(max-width:800px){    
+    .homeplayers-title p ,.homeplayers-title  a{
+        font-size: 1.5vw;
+    }
+    .players-table a {    
+        font-size: 1.8vw;
+    }
+}
+
+
+
+@media(max-width:700px){
+    .homeplayers-title {        
+        margin-bottom: 10vw;
+    }
+    .homeplayers-title p ,.homeplayers-title  a{
+        font-size: 2vw;
+    }
+    .players-table .col {
+       display: block;
+    }
+    .players-table .row {
+        margin: 0px 0 5vh;
+        width: 100% !important;
+        text-align: start !important;
+    }
+    .players-table a {    
+        font-size: 2.5vw;
+        padding: 0;
+    }
+}
+
+@media(max-width:500px){
+    
+    .players-table a {    
+        font-size: 3vw;
+    }
+}
+
+
+
+
+.how-works,.data-collect{
+    width: 90%;
+    margin: auto;
+    height: 50vh;
+    display: table;
+    color: #aaa;
+}
+
+
+.how-works span,.data-collect span{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.how-works h1,.data-collect h1{
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 2rem 0;    
+}
+.how-works p,.data-collect p{
+    font-size: 1vw;
+    text-align: justify;
+    width: 80%;
+    line-height: 2;
+}
+
+
+
+@media(max-width:1200px){
+    .how-works p,.data-collect p {        
+        font-size: 1.2vw;    
+    }
+}
+
+@media(max-width:1000px){
+    .how-works ,.data-collect{
+        width: 80%;
+    }    
+    .how-works h1,.data-collect h1{        
+        font-size: 3.5vw;
+        text-align: center;
+    }  
+    .how-works p, .data-collect p {       
+        font-size: 1.5vw;
+        margin: auto;
+        text-align: center;
+    }  
+    
+}
+@media(max-width:700px){
+    
+    
+    .how-works h1,.data-collect h1{
+        font-size: 4vw;
+        letter-spacing: 10px;
+        text-align: start;
+    }
+    
+    .how-works p,.data-collect p{       
+        font-size: 2vw;
+        letter-spacing: 2px;
+        width: 100%;
+        text-align: start;
+        
+    }
+}
+
+@media(max-width:600px){    
+    
+    .how-works h1,.data-collect h1{
+        font-size: 6vw;        
+    }    
+
+    .how-works p,.data-collect p{       
+        font-size: 3vw;        
+        letter-spacing: 1px;
+    }
+    
+}
+
+@media(max-width:500px){ 
+    .how-works p,.data-collect p {       
+        font-size: 2.5vw;  
+    }    
+}
+@media(max-width:400px){ 
+    .how-works p,.data-collect p {       
+        font-size: 3vw;  
+    }    
+}

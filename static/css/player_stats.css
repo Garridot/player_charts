@@ -1,0 +1,536 @@
+main {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+
+
+
+
+
+@keyframes main-img{
+    from{transform: scale(1.5);}
+    to{transform: scale(1.3);}
+}
+
+.main-img::after{
+    /* background: linear-gradient(0deg,#040406d1 1%,transparent 100%); */
+    background: linear-gradient(0deg,#0404065e 1%,transparent 100%);
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    content: "";
+} 
+
+.main-text {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    left: 0;
+    display: table;
+    width: 100%;
+    overflow: hidden;       
+}
+
+.playername {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.playername h1{    
+    font-family: "NeueMontreal-Italic";   
+    font-size: 10vw;  
+    letter-spacing: 20px;  
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+    line-height: .8;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: .5px;
+    -webkit-text-stroke-color: #cedddd;       
+}
+
+
+/**** TITLES *****/
+
+.title {
+    text-transform: uppercase;
+    margin-bottom: 15vh;
+}
+
+.players-goals .title{
+    position: absolute;
+    width: 100%;
+}
+
+.title h1{
+    font-size: 1vw;
+    font-family: "NeueMontreal-Light";   
+    letter-spacing: 2px;
+    color: #adadad;
+    border-bottom: 0.1px solid;
+    padding: 0 0 1rem;
+}
+
+
+
+
+/**** GENERAL STATS *****/
+
+.general-stats {
+    height: 100vh;
+    width: 90%;
+    margin: auto;
+    margin-top: 20vh;
+    position: relative;
+    display: table;
+}
+
+.general-title {
+    position: absolute;
+}
+
+.general-stats h1 {
+    color: #aaa;
+    text-transform: uppercase;
+    font-family: "GoshaSans-Bold";
+    font-size: 2.5vw;
+    letter-spacing: 2px;
+}
+
+.general-stats .teams-filter {    
+    position: absolute;   
+    top: 0;
+    right: 0;   
+}
+
+.teams-filter select {
+    color: #aaa;
+    background: #030303;
+    padding: 0.5rem;
+    font-size: 1.5vw;
+    font-family: "NeueMontreal-Light";
+    letter-spacing: 2px;
+}
+
+select option{
+    font-family: "NeueMontreal-Light";
+    letter-spacing: 2px;
+}
+
+
+
+
+ul.list-general{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+
+ul.list-general li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 1vw;
+    border-bottom: 1px solid;
+    width: 70%;
+}
+
+
+ul.list-general li h2, ul.list-general li h5 {    
+    font-family: "NeueMontreal-Light";   
+    color: #c7c7c7;   
+    letter-spacing: 2px;
+    line-height: 2 !important;
+    margin: 26.56px 0 !important;
+    font-size: revert;
+}
+ul.list-general li h2{
+    text-transform: uppercase;
+    font-size: 1.3vw;
+}
+
+@media(max-width:1000px){
+    .teams-filter select {        
+        font-size: 2vw;
+    }
+    ul.list-general li h2 {
+        text-transform: uppercase;
+        font-size: 2vw;
+    }
+
+    .title h1 {
+        font-size: 1.5vw;
+    }
+}
+
+@media (max-width: 600px){
+    .general-title {
+        position: absolute;
+        right: 0;
+        top: 20vh;
+    }
+    .general-stats h1 {
+        font-size: 4vw;
+        letter-spacing: 4px;
+    }
+    
+    .teams-filter select {
+        font-size: 3vw;
+    }
+    ul.list-general li {        
+        width: 100%;
+    }    
+    ul.list-general li h2 {        
+        font-size: 3vw;
+    }
+    .title h1 {
+        font-size: 3vw;
+    }
+}
+
+
+
+
+/**** TOTAL MATCHES STATS ****/
+
+
+.total-games {
+    height: 100vh;    
+    width: 90%;
+    margin: auto;   
+}
+.gamas-table {
+    height: 100%;    
+    vertical-align: middle;
+}
+.games-data .col {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+}
+.matches,
+.wins,
+.draws,
+.defeats{
+    display: grid;
+    text-align: center;
+    padding: 0 4vw;
+    font-family: "NeueMontreal-Bold";
+    font-family: "GoshaSans-Regular";
+    font-family: "NeueMontreal-Bold";
+    text-transform: uppercase;
+}
+
+.matches span:nth-child(1),
+.wins span:nth-child(1),
+.draws span:nth-child(1),
+.defeats span:nth-child(1){
+    font-size: 10vw;    
+    color: #adadad;
+}
+
+.matches span:nth-child(2),
+.wins span:nth-child(2),
+.draws span:nth-child(2),
+.defeats span:nth-child(2){
+    color: #aaa;
+    background: #720303;
+}
+
+@media(max-width:1200px){
+    .matches, .wins, .draws, .defeats{
+        margin-bottom: 5rem;
+    }
+    .matches span:nth-child(1), 
+    .wins span:nth-child(1), 
+    .draws span:nth-child(1), 
+    .defeats span:nth-child(1){
+        font-size: 7vw;
+    }
+}
+
+@media(max-width:800px){
+    .total-games {
+        height: 60vh;       
+    }
+    .matches span:nth-child(1), 
+    .wins span:nth-child(1), 
+    .draws span:nth-child(1), 
+    .defeats span:nth-child(1) {
+        font-size: 9vw;
+    }
+}
+
+@media (max-width: 600px){
+    .matches span:nth-child(1), 
+    .wins span:nth-child(1), 
+    .draws span:nth-child(1), 
+    .defeats span:nth-child(1) {
+        font-size: 10vw;
+        letter-spacing: 5px;
+    }
+}
+
+
+/**** Player's Goals Chart   ****/
+
+
+.players-goals {
+    height: 100vh;
+    display: table;
+    width: 90%;
+    margin: auto;
+    margin-top: 20vh;
+    position: relative;
+}
+.goals-table{
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.list-goals {
+    margin: 4vw 0;
+    width: 45%;
+    position: absolute;
+}
+
+.list-goals ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list-goals li {
+    display: flex;
+    justify-content: space-between;    
+    padding: 1vw ;
+    border-bottom: 1px solid;
+}
+
+.list-goals  li h2 {
+    font-size: 1.2vw;    
+    font-family: "NeueMontreal-Light";   
+    color: #c7c7c7;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.list-goals  li h2:nth-child(1){
+    font-size: 1vw;    
+} 
+
+.chart-goals {
+    display: flex;
+    justify-content: end;
+    width: 90%;
+}
+.chart-goals .goals{
+    position: relative;    
+}
+.chart-goals canvas{
+    pointer-events: none;
+    max-width: 25vw;    
+}
+.donut-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    right: 0;
+    bottom: 0;
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.donut-text .donut-table{
+    display: table-cell;
+    vertical-align: middle;
+}
+.donut-text h1,
+.donut-text p{
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    font-family: "NeueMontreal-Light";
+}
+
+.donut-text h1{
+    font-size: 2vw;
+    color: #aaa;
+}
+.donut-text p{
+    font-size: 1.8vw;
+    color: #aaa;
+}
+
+
+
+
+@media(max-width:1000px){
+    
+    .list-goals{
+        position: relative;
+        width: 100%;
+    }
+    .list-goals ul {       
+        margin-bottom: 6rem;
+    }
+    .list-goals li h2{
+        font-size: 1.8vw;
+    }
+    .chart-goals{
+        justify-content: center;
+    }
+    .chart-goals canvas {        
+        max-width: 30vw;
+    }
+}
+
+@media(max-width:800px){
+    .list-goals{
+        margin: 18vw 0;
+    }
+    .list-goals li h2 {
+        font-size: 2.5vw;
+    }
+    .chart-goals canvas {        
+        max-width: 40vw;
+    }
+}
+
+@media(max-width: 800px){
+    .donut-text h1 {
+        font-size: 3vw;        
+    }
+    .donut-text p {
+        font-size: 2.8vw;       
+    }
+}
+
+@media (max-width: 600px){
+    .players-goals {       
+        margin-bottom: 20vh;
+    }
+    
+    .list-goals{
+        margin: 25vw 0;
+    }    
+    .list-goals li h2 {
+        font-size: 4vw;
+    }
+    .list-goals li h2:nth-child(1) {
+        font-size: 4vw;
+    }
+    .chart-goals canvas {
+        max-width: 60vw;
+    }
+    .donut-text h1{
+        font-size: 5vw;
+    }
+    .donut-text p{
+        font-size: 3vw;
+    }
+}
+
+
+
+
+
+
+
+.gls_by_seassons{
+    width: 90%;
+    height: 100vh;
+    margin: auto;
+    margin-bottom: 50vh;
+}
+@media(max-width:600px){
+    .gls_by_seassons {        
+        margin-bottom: 20vh;
+    }    
+}
+
+
+
+
+
+/**** PERFORMANCE BY COMPETITION TABLE  *****/
+
+.competition-render {
+    width: 90%;
+    margin: auto;
+}
+
+.competition-render ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 1rem 0;
+    border-bottom: 1px solid;
+    margin: 0 0 1rem;
+}
+
+.competition-render ul li{
+    font-family: "NeueMontreal-Light";
+    letter-spacing: 2px;
+    color: #adadad;
+    font-size: 1vw;
+    text-transform: uppercase;
+    flex: 0 0 auto;
+    width: 16.66666667%;
+    text-align: center;
+}
+.competition-render ul li:nth-child(1){
+    text-align: left;
+}
+
+.competition-render ul li:nth-child(6){
+    text-align: end;
+}
+
+@media(max-width:1000px){
+    .competition-render ul li:nth-child(3){
+        display: none;
+    }
+    .competition-render ul li{
+        font-size: 1.2vw;
+    }
+}
+@media (max-width: 1000px){
+    .competition-render ul li {
+        font-size: 1.8vw;
+    }
+}
+@media(max-width:600px){
+    .competition-render ul li{
+        font-size: 1.7vw;
+    }
+}
+@media (max-width: 500px){
+    .competition-render ul li:nth-child(2){
+        display: none;
+    }
+    .competition-render ul li {
+        font-size: 2.2vw;
+    }
+}
+@media(max-width:400px){
+    .competition-render ul li{
+        font-size: 3vw;
+        letter-spacing: 1px;
+    }
+}
+

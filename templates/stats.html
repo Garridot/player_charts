@@ -1,81 +1,156 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% block title %}Football Player Charts | {{player.name}}{% endblock %}
+<!-- {% block title %}Football Player Charts | {{player.name}}{% endblock %} -->
 <style>
-    main{      
+    
+    .main-img {
         background: url({{player.picture.url}});
-        background-position: 0% 9%;
-        background-size: cover;        
+        background-size: cover;
+        background-position: center;
+        height: 100vh;    
+        position: absolute;
+        top: 0;
+        width: 100%;    
+        animation: main-img 40s alternate linear infinite;  
     }
 </style>
-<link rel="stylesheet" href="{% static 'css/stats.css' %}">
-<link rel="stylesheet" href="{% static 'css/loader.css' %}">        
-        <main>     
-            <div class="player_name">                
-                <h1>{{player.name}}</h1>
-            </div>                      
-        </main> 
-        <div class="page_loader">
-            <div class="lds-roller"><div></div><div></div><div></div><div></div></div>
+<link rel="stylesheet" href="{% static 'css/player_stats.css' %}">  
+
+
+<main>
+    <div class="main-img"></div>        
+    <div class="main-text">
+        <div class="playername">
+            <h1></h1>
+            <h1></h1>
+            <h1></h1>
+            <h1></h1>
         </div>
-        <div class="charts_stats">
-            <div class="main_title">
-                <h1 style="font-size: 6rem;">STATS</h1>
-                <select class="filters" onchange="get_path( '{{path}}' )">
-                    <option value="total" selected>Total</option>
-                    {% for t in teams %}
-                    <option value="{{t}}" >{{t}}</option>                
-                    {% endfor %}
-                </select>
+    </div>        
+</main>
+<section class="stats">    
+    <div class="res-data">
+        <div class="general-stats">
+            <div class="general-title">
+                <h1>General Stats</h1>
             </div>
-
-            <section id="stats">
-                <div class="general"></div>  
-                <div class="involvement"> </div>  
-            </section> 
-
-            <section class="section_gls_as_season">
-                <div class="pie_chart">
-                    <canvas id="gls_as_season" height="600"> </canvas>
-                </div> 
-            </section> 
-
-            <section class="section_involvements">    
-                <div class="involvements_chart">
-                    <canvas id="involvements" height="600"> </canvas>
-                </div> 
-            </section>
-
+            <div class="teams-filter">
+                <select onchange="getRequest('{{player.name}}')">
+                    <option value="total" selected>Total</option>
+                    {% for team in teams %}
+                    <option value="{{team}}">{{team}}</option>
+                    {% endfor %}  
+                </select>
+            </div>           
             
-            <section class="section_rate_goals">
-                <p>TEAM'S GOALS SCORED</p>
-                <div class="rate_date">
-                    <div class="ratio_goals_stats"></div>  
-                    <div class="goals_charts">
-                        <canvas id="rate_goals" height="600"></canvas>                    
-                    </div>
-                </div>                
-            </section>
-
-            
-            
-            <section>    
-                <div class="performance_table">  
-                    
-                    <h3 style="text-transform:uppercase; padding:5rem 0">Performance by Competition</h3>                        
-                       
-                    <div class="competitions"></div>            
-                </div> 
-            </section>
-                    
+            <ul class="list-general">
+            </ul>
         </div>
-    
-        <script src="{% static 'js/stats.js' %}"></script>
-        <script>
-            window.onload = function(event){
-                get_path('{{path}}');
-            }
-        </script>
-<script src="{% static 'js/parallax.js' %}"></script>
+        <div class="total-games">
+            <div class="title">
+                <h1>Career games</h1>
+            </div>
+            <div class="gamas-table">
+                <div class="games-data">                
+                    <div class="col">
+                        <div class="matches">
+                            <span></span>
+                            <span>matches</span>
+                        </div>
+                        <div class="wins">
+                            <span></span>
+                            <span>wins</span>
+                        </div>
+                    </div>
+                    <div class="col">                    
+                        <div class="draws">
+                            <span></span>
+                            <span>draws</span>
+                        </div>
+                        <div class="defeats">
+                            <span></span>
+                            <span>defeats</span>
+                        </div>
+                    </div>
+
+            </div>
+            </div>
+        </div>    
+        <div class="players-goals">
+            <div class="title">
+                <h1>Goal involvement percent</h1>
+            </div>        
+            <div class="goals-table">
+                <div class="list-goals">
+                    <ul>
+                        <li>
+                            <h2>Team's Goals</h2>
+                            <h2></h2>
+                        </li>
+                        <li>
+                            <h2>Goals</h2>
+                            <h2></h2>
+                        </li>
+                        <li>
+                            <h2>Assists</h2>
+                            <h2></h2>
+                        </li>
+                        <li>
+                            <h2>Goal involvement</h2>
+                            <h2></h2>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chart-goals">                    
+                    <div class="goals">
+                        <canvas id="goals_donut"></canvas> 
+                        <div class="donut-text">
+                            <div class="donut-table">
+                                <h1>Goal <br> involvement</h1>
+                                <p></p>
+                            </div>                            
+                        </div>                                               
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gls_by_seassons">
+            <div class="title">
+                <h1>Goals & assists in each season</h1>
+            </div>        
+            <div class="chart_seasons">
+                <canvas id="line_season" height="500"></canvas>
+            </div>
+        </div>
+        <div class="competition-render">
+            <div class="title">
+                <h1>Performance by Competition</h1>
+            </div>        
+            <ul class="table-title">
+                <li class="table-head">Competition</li>
+                <li class="table-head">Matches</li>
+                <li class="table-head">Team's goals</li>
+                <li class="table-head">Goals</li>
+                <li class="table-head">Assists</li>                
+                <li class="table-head">G/A %</li>
+            </ul>
+            <div class="performance-data">                
+            </div>            
+        </div>
+    </div>
+</section>
+<script>
+    var player = "{{player.name}}";
+</script>
+<script src="{% static 'js/player_stats.js' %}"></script>
+<script>    
+    window.onload = function(event){
+        getRequest();
+    }
+</script>       
+
+
+
+
 {% endblock %}

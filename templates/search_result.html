@@ -1,12 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="search" style="padding: 8rem 0; width: 90%;margin: auto;">    
-    <h3>Result for :{{search}}</h3>
-    <ul style="margin: 0;padding: 0;">
+<style>
+    .search{
+        padding: 2.8vw 0 0;
+    }
+    .search h3{
+        width: 90%;
+        margin: auto;
+        font-size: 1.2vw;
+        letter-spacing: 5px;
+        text-align: center;
+        color: #cedddd;
+        padding: 0;
+        font-family: "NeueMontreal-Light";
+    }
+    .search ul{
+        width: 90%;
+        margin: auto;
+        margin-top: 25vh;
+        list-style: none;
+    }
+    .search li{
+        margin-bottom: 10vh;
+    }
+    .search li a{
+        color: #cedddd;
+        text-decoration: none;
+        letter-spacing: 3px;
+        font-family: "NeueMontreal-Light";
+        font-size: 1.2vw;
+        transition: all .5s;
+    }
+</style>
+<div class="search">    
+    <h3>Result for : {{search}}</h3>
+    <ul>
         {% if players %}
         {% for player in players %}
-        <li style="list-style:none;font-size: x-large;margin: 4rem 0 ;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
+        <li><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
         {% endfor %}
         {% endif %}
     </ul>

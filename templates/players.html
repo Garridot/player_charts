@@ -1,43 +1,68 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% block title %}Football Player Charts | Players {% endblock %}
-<style>
-    ul li {
-    padding: 1rem 0;
+<!-- {% block title %}Football Player Charts | Players {% endblock %} -->
+<style>    
+    section{
+        padding: 2.8vw 0 0;
     }
-    @media(max-width:800px){
-        ul{
-            display: block !important;
-            padding: 0;
-        }
-        ul .col{
-            padding: 0;
-            text-align: start !important;
-        }
+    .title-p {
+        width: 90%;
+        margin: auto;
+        font-size: 1.2vw;
+        letter-spacing: 5px;
+        text-align: center;
+        color: #cedddd;
+    }
+    .title-p p{
+        padding: 0;
+        margin: 0;
+    } 
+    .players {
+        width: 80%;
+        margin: auto;
+        margin-top: 25vh;
+    }
+    .players .col{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .players .col .row {
+        margin: 0 0 10vh;
+        width: 33.33333333%;
+    }
+    .players .row:nth-child(2){
+        width: 20%;
+    }
+    .players .row:nth-child(3){
+        text-align: end;
+    }
+    .players .col .row a{
+        color: #cedddd;
+        text-decoration: none;
+        letter-spacing: 3px;
+        font-family: "NeueMontreal-Light";
+        font-size: 1.2vw;
+        transition: all .5s;
     }
 </style>
-<section class="players" style="width: 90%; margin:auto;">
-    <div class="title-p" style="display: flex; justify-content: space-between;">
+<section>
+    <div class="title-p">
         <p>PLAYERS</p>
     </div>        
-    <ul class='row' style="margin: 5rem 0 0 0;">        
-        <div class="col"> 
-            {% for player in players %}{% if forloop.counter <= 5 %} 
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
-            {% endif %}{% endfor %} 
-        </div> 
-        <div class="col" style="text-align: center;"> 
-            {% for player in players %}{% if forloop.counter > 5 and forloop.counter <= 10 %} 
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
-            {% endif %}{% endfor %} 
-        </div> 
-        <div class="col" style="text-align: end;"> 
-            {% for player in players %}{% if forloop.counter > 10 %} 
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player.name}}</a></li>
-            {% endif %}{% endfor %} 
-        </div> 
-       
-    </ul>
+    <div class="players">  
+        <div class="col">  
+            {% for player in players %}{% if forloop.counter|divisibleby:3 %}
+            <div class="row"><a href="{% url 'get_stats' player.name %}">{{player}}</a></div>            
+        </div>
+        <div class="col">
+            {% else %}            
+            <div class="row"><a href="{% url 'get_stats' player.name %}">{{player}}</a></div>
+            {% endif %}
+            {% endfor %}
+        </div>   
+               
+    </div>
 </section>
 {% endblock %}

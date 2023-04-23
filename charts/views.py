@@ -18,13 +18,16 @@ from django.db.models import Q
 
 def home(request):
     context = {}
-    context['Players'] = Player.objects.all()        
+    context['players'] = Player.objects.all()[:9]        
     return render(request,'home.html',context)
+
+
 
 def players(request):
     players = Player.objects.all()
     context = {'players':players}
     return render(request,'players.html',context)
+
 
 
 def search_players(request):
@@ -38,17 +41,20 @@ def search_players(request):
         return render(request,'search_result.html',context)
 
 
+
+
 def get_stats(request,player):
     player = Player.objects.get(name=player)
 
     df = pd.DataFrame(Player_Stats_by_Season.objects.all().values()) 
     df = df[df['player_id'] == player.id]
 
-    context = {}
-    context['path']   = request.path    
+    context = {}    
     context['teams']  = df['team'].unique()
     context['player'] = player 
     return render(request,'stats.html',context)
+
+
 
 @api_view(['GET', 'POST'])
 def general_stats(request,player,team):
@@ -73,11 +79,11 @@ def general_stats(request,player,team):
     context['Ratio_gls'] = round(context['Goals'] / context['Matches'],2) 
     context['Ratio_ass'] = round(context['Assists'] / context['Matches'],2)   
 
-    total      = context['Goals'] + context['Assists'] 
-    team_goals = 0
-    for i in stats: team_goals   += i.team_goals
-    # calculate the goals involvements %
-    context['rate_involvement'] = round(total * 100 / team_goals,2)
+    # total      = context['Goals'] + context['Assists'] 
+    # team_goals = 0
+    # for i in stats: team_goals   += i.team_goals
+    # # calculate the goals involvements %
+    # context['rate_involvement'] = round(total * 100 / team_goals,2)
 
     return Response(context)
 
@@ -176,8 +182,11 @@ def performance_competition(request,player,team):
 
     df['performance'] = performance 
 
+    df.sort_values(by=['games'], inplace=True, ascending=False)
+
     context['Competition'] = df.index.unique().to_list()    
     context['games']       = df['games'].values.tolist() 
+    context['team_goals']  = df['team_goals'].values.tolist()
     context['goals']       = df['goals'].values.tolist()
     context['assists']     = df['assists'].values.tolist() 
     context['performance'] = df['performance'].values.tolist() 
@@ -186,7 +195,7 @@ def performance_competition(request,player,team):
 
 
 @api_view(['GET', 'POST'])
-def goals_involvements_overall_rate(request,player,team):
+def goals_involvements_rate(request,player,team):
 
     player = Player.objects.get(name=player)     
     
@@ -203,6 +212,127 @@ def goals_involvements_overall_rate(request,player,team):
     context["rate_goals_involvements"]  = round((stats['goals'].sum() + stats['assists'].sum()) * 100 / stats['team_goals'].sum(),2)
 
     return Response(context)     
+
+
+
+@api_view(['GET', 'POST'])
+def career_games(request,player,team):
+
+    player = Player.objects.get(name=player)     
+
+    if team == 'total':
+        stats = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player).values())
+    else:  
+        stats = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player,team=team).values())
+
+    context = {}
+    context['games']  = stats['games'].sum()
+    context['wins']   = stats['wins'].sum()
+    context['draws']  = stats['draws'].sum()
+    context['defeats']  = stats['defeats'].sum()   
+
+    return Response(context)  
+
+
+
+import json
+
+def international_competition():
+    player = Player.objects.get(name="Neymar")
+
+    team = "total" 
+
+    if team == 'total':
+        stats = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player).values())
+
+        
+    else:  
+        stats = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player,team=team).values())     
+
+    
+
+    # Club league Competition
+    filter_league = ["LaLiga","Ligue 1","Serie A","Premier League","Bundesliga","Eredivisie"]    
+
+    club_league = stats.loc[stats['competition'].str.contains('|'.join(filter_league))]
+    club_league = club_league.groupby(['competition']).sum()
+
+
+
+    uefa_league = stats.loc[stats['competition'].str.contains('|'.join(['UEFA Champions League',"Europa League"]))]
+
+    # remove qualifying rows
+    uefa_league = uefa_league.loc[uefa_league['competition'].str.contains("Qualifying") == False]
+
+
+    uefa_league = uefa_league.groupby(['competition']).sum()   
+
+
+    
+   
+
+    
+    
+
+    
+    
+
+
+
+
+
+    # Nation Competition
+    nation = stats.loc[stats['competition'].str.contains('|'.join(['Copa América',"EURO","World Cup"]))] 
+    nation['competition'] = nation['competition'].str.replace('\d+', '')
+
+    # remove qualifying or world cup club row
+    nation = nation.loc[nation['competition'].str.contains('|'.join(["qualification","FIFA Club"])) == False]
+
+    nation['competition'] = nation['competition'].str.strip()
+    nation = nation.groupby(['competition']).sum()
+
+    print(nation)
+
+
+    # if "World Cup" in nation.index:
+    #     world_cup = nation.loc[nation.index.str.len() == 9]
+    # else: world_cup = 0
+
+    # if "EURO" in nation.index:        
+    #     continental = nation.loc[nation.index.str.len() == 4]
+    # elif "Copa América" in nation.index:
+    #     continental = nation.loc[nation.index.str.len() == 12]
+    # else:
+    #     continental = 0   
+    
+    
+    # result = pd.DataFrame({'bla':[1,2,3],'bla2':['a','b','c']}).to_json(orient='records')
+    # print(json.loads(result))
+
+
+    
+
+    
+
+      
+   
+
+     
+# international_competition()     
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### PLAYERS COMPARATION #### 
 
     
 def player_comparison(request):
@@ -253,6 +383,8 @@ def goal_involvements_players(request,first_player,second_player):
     
 
     print(stats)
+
+
 
 @api_view(['GET', 'POST'])
 def performance_competition_players(request,first_player,second_player):
@@ -338,6 +470,9 @@ def goals_by_age(request,first_player,second_player):
     context['goals_p2'] = df['goals_p2']
 
     return Response(context)
+
+
+  
 
     
 

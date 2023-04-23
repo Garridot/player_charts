@@ -1,102 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% block title %}Football Player Charts{% endblock %}
+<!-- {% block title %}Football Player Charts{% endblock %} -->
 
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 
 <style>
-     main{
-        background-image: url(/static/banner.jpg);
-        background-position: 0% 9%;
+    .main-img {
+        background: url(/static/FootballPlayersStats2.jpg); 
         background-size: cover;
-        background-attachment: fixed;
-        /* filter: saturate(1); */
-        }
-        .player_name{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 720px;
-            width: 90%;
-            margin: auto;
-        }
-
-        .player_name h1{
-            text-transform: uppercase;
-            font-size: 8rem;
-            font-weight: 900;
-            color: transparent;
-            -webkit-text-stroke: 0.1vw white;
-        }
-
-        .title_home{
-            width: 95%;
-            margin:auto;
-            padding:5rem .5rem 5rem;            
-            align-items: center;
-            display: block;
-        }
-        .title_home h1{
-            font-size: 3rem;
-            text-transform: uppercase;
-            font-weight: 600; 
-            padding: 2rem 0;
-            /* text-align: center; */
-        }
-        .title_home p{
-            text-align: justify;
-        }
-        
-        
-        @media(max-width:800px){
-        main{
-            background-position-x: 40%;
-        }
-        .title_home{
-            display: block;
-        } 
-        .title_home h1{
-            text-align: start !important;
-        }   
-        .title_home p{
-            text-align: justify !important;
-        }     
-        .players .row{
-            display: block;
-        }
-        .players .row .col{
-            text-align: start !important;
-        }
-    }
-        
-        ul{
-            padding: 0;
-        }
-        ul li{
-            padding: 1rem 0;
-        }
-
+        background-position: center;
+        height: 100vh;
+        animation: main-img 40s alternate linear infinite;
+        position: absolute;
+        top: 0;
+        width: 100%;  
+        visibility: hidden;     
+}
 </style>
-    
-        <main>  
-            <div class="player_name">
-                <h1>Football Player Charts</h1>
-            </div>
-        </main>  
-    
-    <div class="title_home row">
-        <div class="col"><h1 style="text-align: center;">Football Player Charts (BETA)</h1></div>
-        <div class="col"><p style="text-align: center;">Football Player Charts is a football statistics website where you will find information, statistics, and charts that show how influenced a player in each team he played.</p></div>        
+
+<main>
+    <div class="main-img"></div>
+    <div class="main-text">
+        <span>
+            <h1>Football Player Charts</h1>
+        </span>            
     </div>
-    <section class="players" style="width: 90%; margin:auto;">
-        <div class="title-p" style="display: flex; justify-content: space-between;">
-            <p>PLAYERS</p>
-            <p style="font-size: small;text-decoration: underline;"><a href="{% url 'players' %}">VIEW MORE</a></p>
-        </div>        
-        <ul class='row'>
-            <script>                
-                console.log()
-            </script>
+</main>
+
+<section class="home-data">
+    <div class="home-title">
+        <div>
+            <h1>Football Player Charts</h1> <h6>(beta)</h6>
+        </div>            
+        <div>
+            <p>
+                Football Player Charts is a football statistics website where you will find information, 
+                statistics, and charts that show how influenced a player in each team he played.
+            </p>
+        </div>
+    </div>
+    <div class="home-players">
+        <div class="homeplayers-title">
+            <p>players</p>
+            <a href="{% url 'players' %}">View more</a>
+        </div>
+        <div class="players-table"> 
+
+            <div class="col">  
+                {% for player in players %}{% if forloop.counter|divisibleby:3 %}
+                <div class="row"><a href="{% url 'get_stats' player.name %}">{{player}}</a></div>            
+            </div>
+            <div class="col">
+                {% else %}            
+                <div class="row"><a href="{% url 'get_stats' player.name %}">{{player}}</a></div>
+                {% endif %}
+                {% endfor %}
+            </div>                    
+            
+        </div>
+    </div>
+    <div class="how-works">
+        <span>
+            <h1>what is Football Player Charts?</h1>
+            <p>
+                Football Player Charts is an API where you can see how much a player influences his team 
+                (the percentage of the goals scored, his favorite victims, his performance by competition, 
+                and his percentage of goals and assists per game). You can also compare their stats to each other.
+            </p>
+        </span>            
+    </div>
+    <div class="data-collect">
+        <span>
+            <h1>How the data is collected?</h1>
+            <p>The data is collected and it's updated through a web scraping on transfermarkt.com.</p>
+        </span>            
+    </div>
+</section>
+
+
+
+
+    
+      
+        <!-- <ul class='row'>            
             {% for player in Players %}
             {% if forloop.counter <= 3 %}
             <div class="col">
@@ -111,28 +98,7 @@
                 <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player}}</a></li>                
             </div> 
             {% endif %}
-            {% endfor %}
-            <!-- <div class="col" style="text-align: center;">
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.3.name %}">{{Players.3.name}}</a></li>
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.4.name %}">{{Players.4.name}}</a></li>
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.5.name %}">{{Players.5.name}}</a></li>
-            </div> 
-            <div class="col" style="text-align: end;">
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.6.name %}">{{Players.6.name}}</a></li>
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.7.name %}">{{Players.7.name}}</a></li>
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' Players.8.name %}">{{Players.8.name}}</a></li>
-            </div>  -->
-        </ul>
-    </section>
-    <div class="title_home row">
-        <div class="col"><h1>How It Works?</h1></div>
-        <div class="col"><p>The website gets the data through a request to our API. The API returns the matches, goals, assists, and percent of goal involvements in total and by season. The percent of the goals scored in the team, favorite victims, performance by competition, and the percent of goals and assists per game of the player. You can also filter by the team the player's statistics.</p></div>        
-    </div>
-    <div class="title_home row">
-        <div class="col"><h1>How The Data Is Collected?</h1></div>
-        <div class="col"><p>
-            The data is collected and it's updated through a web scraping on <a href="https://www.transfermarkt.com/">transfermarkt.com.</a> All terms and conditions you can be read <a href="https://www.transfermarkt.com/intern/anb">here.</a></p></div>        
-    </div>
-    <script src="{% static 'js/parallax.js' %}"></script>
+            {% endfor %}           
+        </ul>    -->
 {% endblock %}
 

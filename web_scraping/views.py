@@ -222,7 +222,7 @@ class Player_Charts_Scraping():
 def update_players():
 
     urls = [
-        # Messi's Stats
+        # # Messi's Stats
         'https://www.transfermarkt.com/lionel-messi/leistungsdaten/spieler/28003',
         # Cristiano's Stats
         'https://www.transfermarkt.com/cristiano-ronaldo/leistungsdaten/spieler/8198',    
@@ -242,6 +242,12 @@ def update_players():
         'https://www.transfermarkt.co.in/erling-haaland/leistungsdaten/spieler/418560',  
         # Muller's Stats
         'https://www.transfermarkt.co.in/thomas-muller/leistungsdaten/spieler/58358',
+
+
+        # Drogba's Stats
+        # 'https://www.transfermarkt.co.in/didier-drogba/leistungsdaten/spieler/3924',
+        # Rooney's Stats
+        # "https://www.transfermarkt.co.in/wayne-rooney/leistungsdaten/spieler/3332",
     ]
 
     for url in urls: Player_Charts_Scraping(url,update=True).web_scraping() 
