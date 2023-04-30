@@ -14,8 +14,8 @@ urlpatterns = [
     path('goals_involvements_rate/<str:player>/<str:team>',goals_involvements_rate,name='goals_involvements_rate'), 
     path('career_games/<str:player>/<str:team>',career_games,name="career_games"),
     
-    path('players/player_comparison',player_comparison,name='player_comparison'),
-    path('player_comparison/goal_involvements/<str:first_player>/<str:second_player>',goal_involvements_players,name='goal_involvements'),
-    path('player_comparison/performance_competition_players/<str:first_player>/<str:second_player>',performance_competition_players),
-    path('player_comparison/goals_by_age/<str:first_player>/<str:second_player>',goals_by_age),
+    path('players_comparison/',comparison_form,name='comparison_form'),
+    path('player_comparison/general_stats/<str:first_player>/<str:second_player>',comparison_stats,name='comparison_stats'),
+    path('player_comparison/byseason/<str:first_player>/<str:second_player>',comparation_bySeason), 
+    path('player_comparison/bycompetition/<str:first_player>/<str:second_player>',comparation_byCompetition),
 ]

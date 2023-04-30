@@ -78,27 +78,22 @@
     </div>
 </section>
 
+<script>
+    // ONLOAD //
 
-
-
-    
-      
-        <!-- <ul class='row'>            
-            {% for player in Players %}
-            {% if forloop.counter <= 3 %}
-            <div class="col">
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player}}</a></li>                
-            </div> 
-            {% elif forloop.counter > 3 and  forloop.counter <= 6 %}
-            <div class="col">
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player}}</a></li>                
-            </div>             
-            {% elif forloop.counter > 6 and  forloop.counter <= 9 %}
-            <div class="col">
-                <li style="list-style:none;font-size: x-large;"><a href="{% url 'get_stats' player.name %}">{{player}}</a></li>                
-            </div> 
-            {% endif %}
-            {% endfor %}           
-        </ul>    -->
+    var header   = document.querySelector("header");
+    var mainImg  = document.querySelector("main .main-img");
+    var homedata = document.querySelector("section.home-data");
+    var footer   = document.querySelector("footer");
+    window.onload = ()=>{
+        setTimeout(()=>{
+            header.style.visibility   = "visible";
+            mainImg.style.visibility  = "visible";
+            homedata.style.display    = "block";
+            footer.style.display      = "table";
+        },1000)
+    }
+</script>
 {% endblock %}
+
 

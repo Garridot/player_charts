@@ -1,0 +1,96 @@
+.form_comparison{
+    width: 80% !important;
+    margin: auto;
+    height: 100vh;
+    display: table;
+}
+
+.form_comparison form{
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+form .selects select{
+    color: #aaa;
+    background: #030303;
+    padding: 0.5rem;
+    font-size: 1.5vw;
+    font-family: "NeueMontreal-Light";
+    letter-spacing: 2px;
+    border-radius: 0;
+}
+form .selects select option{
+    font-family: "NeueMontreal-Light";
+    letter-spacing: 2px;
+}
+
+.d-grid.gap-2{
+    margin: .5rem 0;
+}
+.d-grid.gap-2 input{
+    padding: 0.5rem 0;
+    font-size: 1.25rem;
+    border-radius: 0;
+    color: #aaa;
+    background: #030303 !important;
+    transition: all 0.09s;
+    text-transform: uppercase; 
+    font-family: "NeueMontreal-Light";
+    letter-spacing: 2px;
+}
+.d-grid.gap-2 input:hover{
+    background: #080808 !important;
+}
+
+@media(max-width:1000px){
+    .d-grid.gap-2 input {       
+        font-size: 1.25vw;
+    }
+}
+
+@media(max-width:800px){
+    form .selects select {        
+        font-size: 2vw;
+    }
+    .d-grid.gap-2 input {       
+        font-size: 2vw;
+    }
+}
+
+@media(max-width:700px){
+    form .selects select {        
+        font-size: 2.5vw;
+    }
+    .d-grid.gap-2 input {       
+        font-size: 2.5vw;
+    }
+}
+
+@media(max-width:600px){
+    form .selects select {        
+        font-size: 2.5vw;
+    }
+    .d-grid.gap-2 input {       
+        font-size: 3vw;
+    }
+}
+
+@media(max-width:600px){
+    form .selects select {        
+        font-size: 3vw;
+    }
+    .d-grid.gap-2 input {       
+        font-size: 3vw;
+    }
+}
+
+@media(max-width:400px){
+    form .selects select {        
+        font-size: 3.5vw;
+    }
+    .d-grid.gap-2 input {       
+        font-size: 4vw;
+    }
+}

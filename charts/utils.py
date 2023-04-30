@@ -1,37 +1,62 @@
+def utils_generalstats(player,df):
 
-def get_goal_involvements_rate(stats):    
+    context = {}
+
+    context['player']       = player.name
+    context['matches']      = 0  
+    context['goals']        = 0
+    context['assists']      = 0
+    context["team_goals"] = 0
     
-    # group by season all matches
-    df = stats.groupby(['season']).sum()
-
-    context = {}    
      
-    Goals    = df['goals'].values.tolist()
-    Assists  = df['assists'].values.tolist()
-    Total_gf = df['team_goals'].values.tolist()    
 
-    involvements = []
-    for g,a,t in zip(Goals,Assists,Total_gf): 
+    for i in df['games']     : context['matches'] += i
+    for i in df['goals']     : context['goals']   += i 
+    for i in df['assists']   : context['assists'] += i
+    for i in df['team_goals']: context["team_goals"] += i 
 
-        involvements.append(g + a)
 
-        # if 'Total_gf' is equal to 0, replace to 1(You can not divide by zero)                  
-        # try:    involvements.append( round(( (g + a) * 100) / t , 2))
-        # except: involvements.append( round(( (g + a) * 100) / 1 , 2))   
-
-    context['seasons']      = df.index.tolist()
-    context['goal_involvements_rate'] = involvements
+    context["involvement"] = round((context['goals'] + context['assists']) * 100 /  context["team_goals"],2)    
+    
 
     return context
 
-def get_ages(df,age):    
 
-    list_age = []
+def utils_statscompet(player,df):
+    df = df.groupby(['competition']).sum()  
+    
+    
+    context = {}
 
-    df = df.groupby(['season']).sum() 
+    context['player']       = player.name  
+    context['competition']  = df.index.unique().to_list() 
+    context['games']        = df['games'].values.tolist() 
+    context['goals']        = df['goals'].values.tolist() 
+    context['assists']      = df['assists'].values.tolist()
 
-    for i in range(len(df.index.tolist())): 
-        a = (age - i) 
-        list_age.append(a)   
+    return context
+    
 
-    return list_age     
+
+
+def utils_involvement_season(player,df):    
+    
+    # group by season all matches
+    df = df.groupby(['season']).sum()
+
+    seasons = []   
+
+    for i in range(len(df.index.tolist())):
+        seasons.append(f"Season {i+1}")  
+
+    context = {}    
+     
+    context['player']  = player.name  
+    context['goals']   = df['goals'].values.tolist()
+    context['assists'] = df['assists'].values.tolist() 
+    context['seasons'] = seasons 
+
+    return context
+
+
+

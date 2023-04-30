@@ -1,176 +1,272 @@
-.form_comparison{
-    width: 90% !important;   
+.result{
+    display: none;
 }
 
-form .selects{
-    display: flex;
-}
-form .selects select{
-    background-color: #030303 !important;
-    color: #aaa !important;
-    border: 1px solid #aaa;
-    padding: 1rem !important; 
-    font-weight: 600;   
-}
-form .selects select option{
-    padding: 1rem !important;
-    font-weight: 600;   
-}
-
-.d-grid.gap-2{
-    margin: .5rem 0;
-}
-.d-grid.gap-2 input{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-    font-size: 1.25rem;
-    border-radius: 0.5rem;
-    color: #aaa;
-    background: #030303 !important;
-    transition: all 0.09s;
-    font-weight: 600;   
-}
-.d-grid.gap-2 input:hover{
-    background: #151515 !important;
-}
-
-@media(max-width:800px){
-    form .selects{
-        display: block;
-    }
-}
-
-
-div.main_title{
-    width: 95%;
-    margin:auto;
-    padding:5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;        
-}
-.main_title h1{
-    font-weight: 600;          
-         
-}
-
-
-.data{
-    display: flex;    
-    justify-content: space-between;
-    padding: 0 0 5rem  ;
-}
-.stats__ div{
-    padding: 0 1rem ;
+main{
+    position: relative;   
+    overflow: hidden;  
+    display: flex;       
+} 
+main::after{
+    background: linear-gradient(0deg,#040406 5%,#040406d1 30%,transparent 90%);    
+    height: 100vh;
     width: 100%;
+    position: absolute;
+    top: 0;
+    content: "";
+} 
+.player-img{
+    width: 50%;
+    overflow: hidden;
 }
-.stats__ span{    
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    border-bottom: 1px solid #aaa;    
+.player1{    
+    height: 100vh;    
+    transform: scale(1.2);
 }
-.stats__ span h2,
-.stats__ span h5{
-    line-height: 2 !important;
-    margin: 26.56px 0 !important;
-    font-size: revert;
+.player2{    
+    height: 100vh;    
+    transform: scale(1.2);
 }
 
-.stats__ .involvement span{
-    justify-content: end;
+
+
+
+.general-stats{
+    height: 100vh;
+    display: table;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+.general-stats .stats-table{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+.stats-table ul{
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    list-style: none;   
+}
+.stats-table ul li{
+    text-transform: uppercase;
+    color: #c7c7c7;
+    font-family: "NeueMontreal-Light";
+    background: #040406d1;         
+    background: #04040682;  
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2vw 0;
+    margin: 0.1rem 0;
+}
+
+.stats-table ul li.table-title h1{            
+    letter-spacing: 2px;
+    font-size: 1.5vw;    
+}
+
+
+
+.stats-table ul li .row:nth-child(2) h1{
+    font-size: 1.2vw;
+    display: flex;
+    align-items: center;
+    letter-spacing: 2px;
+}
+
+.stats-table ul li .row h1.greatest{
+    color: darkred;
+}
+
+.stats-table ul li .row h1{    
+    font-size: 1.8vw;
+    display: flex;
+    letter-spacing: 2px;
+    align-items: center;
+}
+    
+
+
+@media(max-width:1200px){
+    .stats-table ul {
+        width: 70%;
+    }
 }
 
 @media(max-width:1000px){
-    .data{
-        display: block;
+    .stats-table ul li .row:nth-child(2) {
+        font-size: 1vw;
     }
 }
 
-@media(max-width:800px){    
-    .main_title{
-        display:block !important;
-        text-align:end !important;
-        padding:3rem 0 !important;
+@media(max-width:800px){
+    .stats-table ul {
+        width: 80%;
     }
-    .main_title h1{
-        font-size: 2rem !important;
-        padding: 0 .5rem 2rem !important;
+    .stats-table ul li.table-title {               
+        font-size: 1vw;
+    }
+}
+
+@media(max-width:600px){  
+    .stats-table ul {
+        width: 90%;
+    }          
+    .stats-table ul li .row:nth-child(2) {
+        font-size: 1.5vw;
+    } 
+    .stats-table ul li.table-title {               
+        font-size: 1.2vw;
+    }           
+}
+
+@media(max-width:500px){ 
+    .stats-table ul li.table-title {               
+        font-size: 1.5vw;
+    }           
+}
+
+@media(max-width:400px){  
+    .stats-table ul li.table-title {               
+        font-size: 2vw;
+    }
+    .stats-table ul li .row:nth-child(2) {
+        font-size: 2vw;
     }
 }
 
 
 
-.stats_1, .stats_2{    
+/**** COMPARASION ****/
+
+
+.stats_byseasons{
+    margin: 10rem auto;
+    width: 90%;    
+}
+
+.byseason_title h1{
     width: 100%;
-    justify-content: space-around;
-    margin: 5rem 0;
+    color: #c7c7c7;
+    /* padding: 0 0 1rem;
+    border-bottom: .5px solid #aaa; */
+    text-transform: uppercase; 
+    font-family: "NeueMontreal-Light";   
+    font-size: 1.1vw;
+    letter-spacing: 2px;
+    text-align: end;
+    margin: 0 0 5rem;
+}
+
+.chart-goals,
+.chart-assists{
+    padding: 0 0 20rem;
 }
 
 
+/* stats by competitions */
 
 
+.stats-compet {
+    width: 90%;
+    margin: auto;
+    margin-top: 10rem;
+}
 
-.section__competitions{
-    color:white ; text-align: center; margin: 5rem 0;
-}
-.section__competitions h2{
-    margin: 2rem 0;
-}
-.stats{
-    display: inline-flex; background: #151515;
-}
-.player__,.player__2{
-    font-size: large;
-}
-.boxes{
+.table-players {
     display: flex;
-    font-size: xx-large;
-}
-.player__name h4{
-    color: rgba(168, 19, 62) !important;
+    justify-content: end;
+    padding: 0 0 2vw;
 }
 
-.player2__name h4{
-    color: rgb(255, 217, 78) !important;
+.table-players h1{
+    width: 24%;
+    font-size: 1vw;
+    text-align: center;
+    text-transform: uppercase; 
+    font-family: "NeueMontreal-Light";   
+    color: #c7c7c7;
+}
+
+ul.title-table {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: end;
+}
+
+ul.title-table  .li {
+    text-transform: uppercase;
+    color: #c7c7c7;
+    font-family: "NeueMontreal-Light";
+    font-size: 1vw;
+    width: 8%;
+    text-align: center;
 }
 
 
-.player__data span{
-    padding: 0.5rem 1rem; background: rgba(168, 19, 62); margin: 0 1px; 
-}
-.player2__data span{
-    padding: 0.5rem 1rem; background: rgba(237, 187, 0); margin: 0 1px; 
+
+.res-table ul.performace{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: end;
+    position: relative;
+    border-bottom: 1px solid;    
 }
 
-.boxes span h3{
-    font-size: xx-large; color: white !important;
+.res-table ul.performace li{
+    text-transform: uppercase;
+    color: #c7c7c7;
+    font-family: "NeueMontreal-Light";    
+    width: 8%;
+    text-align: center;
+    padding: 2vw 0;
 }
 
-@media(max-width:900px){
-    .boxes{        
-        font-size: large;
-    }  
-    .player_comparison{
-        width: 100%;
-    }  
+
+.res-table ul.performace li.red{
+    color: darkred;
+    font-weight: 900;
 }
 
-@media(max-width:600px){
-    .player_comparison{
-        width: 100%;
+
+.player1-table{
+    padding: 0 0 0 2vw ;
+} 
+
+.performace h1{    
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 1.2vw;
+    color: #c7c7c7;
+    font-family: "NeueMontreal-Light";    
+    font-weight: 100;
+    padding: 2vw 0 ;   
+}
+
+@media(max-width:1400px){
+    .table-players h1 {
+        width: 30%;
     }
-    .stats {
-        display: inline-block;        
-    }
-    .boxes{        
-        font-size: smaller;
-    }   
-    .player__, .player__2 {
-        font-size: smaller;
+    ul.title-table .li{
+        font-size: 1.1vw;
+        width: 10%;
+    } 
+    .res-table ul.performace li{
+        width: 10%;
     } 
 }
 
-
-
+@media(max-width:1400px){
+    .performace h1 {             
+        font-size: 1.5vw;
+    }
+}

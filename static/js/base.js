@@ -21,17 +21,3 @@ barmenu.onclick = ()=>{
 }
 
 
-// ONLOAD //
-
-var header   = document.querySelector("header");
-var mainImg  = document.querySelector("main .main-img");
-var homedata = document.querySelector("section.home-data");
-var footer   = document.querySelector("footer");
-window.onload = ()=>{
-    setTimeout(()=>{
-        header.style.visibility   = "visible";
-        mainImg.style.visibility  = "visible";
-        homedata.style.display    = "block";
-        footer.style.display      = "table";
-    },1000)
-}

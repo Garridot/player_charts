@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- {% block title %}Football Player Charts | Player Comparison {% endblock %} -->
+<link rel="stylesheet" href="{% static 'css/comparison_form.css' %}">
+
+<section class="form_comparison">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="selects">
+            <select class="form-select form-select-lg mb-3" name="first_player">                 
+                <option value="{{players.0.name}}"selected>{{players.0.name}}</option>                 
+                {% for player in players %}                   
+                    <option value="{{player.name}}">{{player.name}}</option>    
+                {% endfor %}
+            </select>
+            <select class="form-select form-select-lg mb-3" name="second_player">                
+                <option value="{{players.1.name}}"selected>{{players.1.name}}</option>
+                 
+                {% for player in players %}   
+                    <option value="{{player.name}}">{{player.name}}</option>    
+                {% endfor %}
+            </select>
+        </div> 
+        <div class="d-grid gap-2">
+            <input class="form-control" type="submit" value="Compare">  
+        </div> 
+    </form>
+</section>
+
+
+{% endblock %}

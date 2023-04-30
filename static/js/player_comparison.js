@@ -14,22 +14,14 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function get_players(first_player,second_player){
-    // document.querySelector('.page_loader').style.display  = 'flex'
-    get_general_stats(first_player,second_player) 
-    get_goal_involvements(first_player,second_player)
-    get_performance_competition(first_player,second_player)   
-    get_goals_by_age(first_player,second_player)
-
-    document.querySelector('#stats_1').style.display = 'none'
-    document.querySelector('#stats_2').style.display = 'none'
-    document.querySelector('.player_comparison').style.display = 'none'
+function get_stats(first_player,second_player){   
+    getStats(first_player,second_player);
+    getSeasons(first_player,second_player);
+    getStatsCompetition(first_player,second_player);     
 }
 
-
-function get_general_stats(first_player,second_player){ 
-    var team = 'total' 
-    fetch( `/general_stats/${first_player}/${team}` ,{ 
+const getStats = (first_player,second_player)=>{
+    fetch( `/player_comparison/general_stats/${first_player}/${second_player}`,{ 
         headers:{
             'Content-Type':'application/json',                
             'X-CSRFToken' : getCookie('csrftoken')          
@@ -37,175 +29,220 @@ function get_general_stats(first_player,second_player){
         })
     .then((response)=>{ return response.json();}) 
     .then(result => {
-        var player_1 = result
+        var data = result;
+        generalStats(data); 
+         
+    })
+}
+const generalStats = (data)=>{
+    var stas1 = document.querySelectorAll(".stats-table ul li .row:nth-child(1) h1");
+    var stas2 = document.querySelectorAll(".stats-table ul li .row:nth-child(3) h1");
+    
+    stas1[0].innerHTML =  data.player1.matches;
+    stas2[0].innerHTML =  data.player2.matches;       
 
-        fetch( `/general_stats/${second_player}/${team}` ,{ 
-            headers:{
-                'Content-Type':'application/json',                
-                'X-CSRFToken' : getCookie('csrftoken')          
-            },             
-            })
-        .then((response)=>{ return response.json();}) 
-        .then(result => {
-            var player_2 = result
-            render_general_stats(player_1,player_2)
-        })     
+    stas1[1].innerHTML =  data.player1.goals;
+    stas2[1].innerHTML =  data.player2.goals;        
+
+    stas1[2].innerHTML =  data.player1.assists;
+    stas2[2].innerHTML =  data.player2.assists;
+
+    stas1[3].innerHTML =  data.player1.involvement+"%";
+    stas2[3].innerHTML =  data.player2.involvement+"%";
+
+    if(data.player1.matches>data.player2.matches){
+        stas1[0].classList.add("greatest");
+    }else{
+        stas2[0].classList.add("greatest");
+    } 
+
+    if(data.player1.goals>data.player2.goals){
+        stas1[1].classList.add("greatest");
+    }else{
+        stas2[1].classList.add("greatest");
+    } 
+
+    if(data.player1.assists>data.player2.assists){
+        stas1[2].classList.add("greatest");
+    }else{
+        stas2[2].classList.add("greatest");
+    } 
+    if(data.player1.involvement>data.player2.involvement){
+        stas1[3].classList.add("greatest");
+    }else{
+        stas2[3].classList.add("greatest");
+    } 
+}
+
+
+
+const getSeasons = (first_player,second_player)=>{
+    fetch( `/player_comparison/byseason/${first_player}/${second_player}`,{ 
+        headers:{
+            'Content-Type':'application/json',                
+            'X-CSRFToken' : getCookie('csrftoken')          
+        },             
+        })
+    .then((response)=>{ return response.json();}) 
+    .then(result => {
+        var data = result;
+        statsSeasons(data)
+         
+    })
+}
+
+const statsSeasons = (data)=>{
+    var res = data    
+
+    if(res.player1.seasons.length >= res.player2.seasons.length){
+        var season = res.player1.seasons 
+    }else{
+        var season = res.player2.seasons
+    }   
+    
+    var player1 = String(res.player1.player).split(' ')
+    if(player1.length == 1){ 
+        player1 = player1[0]
+    }else{
+        player1 = player1[1]
+    }
+
+    var player2 = String(res.player2.player).split(' ')
+    if(player2.length == 1){ 
+        player2 = player2[0]
+    }else{
+        player2 = player2[1]
+    }
+
+
+    var glsSeasons = document.querySelector("#chart_glsSeasons").getContext('2d');
+
+    gradient1 = glsSeasons.createLinearGradient(0, 0, 0, 450);
+    gradient1.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+    gradient1.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+    gradient1.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
+
+
+    
+    const barData = {        
+        labels : season,
+        datasets: [
+            {                
+                label: player1 + "'s goals",
+                data: res.player1.goals,                
+                stack: 'Stack 0',
+                fill: true,                 
+                backgroundColor: gradient1,
+                pointBackgroundColor: 'white',
+                borderWidth: 1,
+                borderColor: '#911215',
+                
+            },                       
+            {
+                label: player2 + "'s goals",
+                data:  res.player2.goals,                
+                stack: 'Stack 1',
+                fill: 'start',  
+                borderColor: '#cedddd',
+                pointBackgroundColor: '#cedddd',
+                borderWidth: 1,
+            },              
+        ]
+    };   
+
+
+    linechart1 = new Chart(glsSeasons,{  
+        type: 'line',
+        data: barData,
+        options: {        
             
-    })  
-
-    
-}
-function render_general_stats(player_1,player_2){
-
-
-    document.querySelector('#stats_1').querySelector('.main_title').innerHTML = `<h1 style="font-size: 6rem;">${player_1.player}</h1>`
-
-    var stats_ = document.querySelector('#stats_1').querySelector('.general')
-    
-    stats_.innerHTML = `
-    <span>
-        <h2>GOALS : ${player_1.Goals} </h2><h5>(${player_1.Ratio_gls} per game)</h5>     
-    </span>
-    <span>           
-        <h2>ASSISTS : ${player_1.Assists}</h2> <h5>(${player_1.Ratio_ass} per game)</h5>    
-    </span>         
-    <span style='font-size: revert;'>
-        <h2>INVOLVEMENTS PERCENTAGES:</h2>  <h2>${player_1.rate_involvement} %</h2>     
-    </span>` ;
-
-    document.querySelector('#stats_1').querySelector('.involvement').innerHTML = `
-    <span>      
-        <h2>${player_1.Matches} : MATCHES</h2> 
-    </span>
-    
-    ` 
-
-    document.querySelector('#stats_2').querySelector('.main_title').innerHTML = `<h1 style="font-size: 6rem;">${player_2.player}</h1>`
-
-    var stats_2 = document.querySelector('#stats_2').querySelector('.general')
-    
-    stats_2.innerHTML = `
-    <span>
-        <h2>GOALS : ${player_2.Goals} </h2><h5>(${player_2.Ratio_gls} per game)</h5>     
-    </span>
-    <span>           
-        <h2>ASSISTS : ${player_2.Assists}</h2> <h5>(${player_2.Ratio_ass} per game)</h5>    
-    </span>         
-    <span style='font-size: revert;'>
-        <h2>INVOLVEMENTS PERCENTAGES:</h2>  <h2>${player_2.rate_involvement} %</h2>     
-    </span>` ;
-
-    document.querySelector('#stats_2').querySelector('.involvement').innerHTML = `
-    <span>      
-        <h2>${player_2.Matches} : MATCHES</h2> 
-    </span>
-    
-    ` 
-} 
-
-
-
-function get_goal_involvements(first_player,second_player){     
-    fetch( `/player_comparison/goal_involvements/${first_player}/${second_player}`,{ 
-        headers:{
-            'Content-Type':'application/json',                
-            'X-CSRFToken' : getCookie('csrftoken')          
-        },             
-        })
-    .then((response)=>{ return response.json();}) 
-    .then(result => {
-        var data = result
-        render_goal_involvements(data)
-    })
-}
-function render_goal_involvements(data){
-
-    var ctx = document.querySelector('#involvements_chart').getContext('2d')   
-
-    gradient = ctx.createLinearGradient(0, 0, 0, 450);
-    gradient.addColorStop(0, 'rgba(255, 0,0, 0.1)');
-    gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.1)');
-    gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
-
-    gradient2 = ctx.createLinearGradient(0, 0, 0, 450);
-    gradient2.addColorStop(0, 'rgba(0, 77, 152, 0.5)');
-    gradient2.addColorStop(0.5, 'rgba(0, 77, 152, 0.25)');
-    gradient2.addColorStop(1, 'rgba(0, 77, 152, 0)');
-    
-
-    myLine = new Chart(ctx,{ 
-        type:'line',
-        data: {
-            labels : data.seasons,
-            datasets:[                            
-                {
-                    label : data.player1,
-                    data  : data.goal_involvements_rate_player1,
-                    fill: 'start',      
-                              
-                    backgroundColor: gradient,
-                    borderColor: 'rgba(255, 0,0,0.5)', 
-                    pointBackgroundColor: 'white',
-                    borderWidth: 2,
-                    tension: 0.1
-                },
-                {
-                    label : data.player2,
-                    data  : data.goal_involvements_rate_player2,
-                    fill: 'start',
-                    backgroundColor: gradient2,
-                    borderColor: 'rgba(0, 77, 152,0.7)',
-                    pointBackgroundColor: 'white',
-                    borderWidth: 2,
-                    tension: 0.1
-
-                }            ]
-        },
-        options: {  
-            maintainAspectRatio: false,              
-            responsive: true,
-                interaction: {
+            interaction: {
                 mode: 'index',
-                intersect: false,
-            },
-            scales: {
-                y: {
-                    ticks: { color: '#aaa', beginAtZero: true }
-                },
-                x: {
-                    ticks: { color: '#aaa', beginAtZero: true }
-                }
-            },
+                intersect: true,
+            },     
             plugins: {
                 title: {
                     display: true,
-                    text: 'Goal Involvements by Season.',
-                    font: {
-                        fontSize: 50
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 30
-                    },
-                    color: "#aaa"
+                    text: "Player's Goals",
+                    color:"#aaa",
+                    textAlign: 'right'
                 },
-                legend: {
-                    display:true,
-                    labels: {
-                        color: '#aaa',                            
-                    }
+            },         
+            // indexAxis: 'y',            
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
                 },
-                
+                y: {
+                    stacked: true
+                }
             }
-        }           
-        
+        }
+    })
+
+
+    const dataAssists = {        
+        labels : season,
+        datasets: [            
+            {                
+                label: player1 + "'s assists",
+                data: res.player1.assists,
+                backgroundColor: "red",
+                stack: 'Stack 0',
+                fill: 'start',  
+                pointBackgroundColor: 'white',
+            },            
+            
+            {                
+                label: player2 + "'s assists",
+                data: res.player2.assists,
+                backgroundColor: "#aaad1",
+                stack: 'Stack 1',
+                fill: 'start',  
+                pointBackgroundColor: 'white',                
+            },    
+            ]
+    };
+
+    var assSeasons = document.querySelector("#chart_assSeasons");
+
+
+    linechart2 = new Chart(assSeasons,{  
+        type: 'line',
+        data: dataAssists,
+        options: {        
+            
+            interaction: {
+                mode: 'index',
+                intersect: true,
+            },     
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Player's Assists",
+                    color:"#aaa"
+                },
+            },         
+            // indexAxis: 'y',            
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
     })
 }
 
 
 
-function get_performance_competition(first_player,second_player){
-    fetch( `/player_comparison/performance_competition_players/${first_player}/${second_player}`,{ 
+const getStatsCompetition = (first_player,second_player)=>{
+    fetch( `/player_comparison/bycompetition/${first_player}/${second_player}`,{ 
         headers:{
             'Content-Type':'application/json',                
             'X-CSRFToken' : getCookie('csrftoken')          
@@ -213,158 +250,61 @@ function get_performance_competition(first_player,second_player){
         })
     .then((response)=>{ return response.json();}) 
     .then(result => {
-        var data = result
-        render_performance_competition(data)        
+        var data = result;
+        statsCompetition(data)      
+        
     })
 }
-function render_performance_competition(data){
-    var table = document.querySelector('.competitions')
-    
 
-    data.player_1.competitions.map(function(e, i) {
+const statsCompetition = (data)=>{
+    tableName = document.querySelectorAll(".table-players h1");
+    tableName[0].innerHTML = data.player1.player;
+    tableName[1].innerHTML = data.player2.player;
+
+
+    var resTable =  document.querySelector('.res-table');
+
+    for (i in data.player1.competition){    
         
+        var performace = document.createElement("ul");
+        performace.className = "performace";
 
-        table.innerHTML += 
+        performace.innerHTML =  `
+            <h1>${data.player1.competition[i]}</h1>
+            <li class="table-data player1-games">${data.player1.games[i]}</li>
+            <li class="table-data player1-assists">${data.player1.assists[i]}</li>
+            <li class="table-data player1-goals" style="padding: 2vw 2vw 2vw 0;">${data.player1.goals[i]}</li>
+            <li class="table-data player2-games">${data.player2.games[i]}</li>
+            <li class="table-data player2-assists">${data.player2.assists[i]}</li>
+            <li class="table-data player2-goals">${data.player2.goals[i]}</li>
         `
+        resTable.appendChild(performace);
 
-        <div class="section__competitions" >
-            <span class='title__competition'><h2>${e}</h2></span> 
-            <div class="stats">
-                <div class='player__'>
-                    <span class="player__name"><h4>${data.player_1.name}</h4></span>
-                    <div class='player__data'>
-                        <div class="boxes">
-                            <span>
-                                <h3>${data.player_1.games[i]}</h3>
-                                <label>APPS</label>
-                            </span>
-                            <span>
-                                <h3>${data.player_1.assists[i]}</h3>
-                                <label>ASSISTS</label>
-                            </span>
-                            <span>
-                                <h3>${data.player_1.goals[i]}</h3>
-                                <label>GOALS</label>
-                            </span>
-                        </div>   
-                                    
-                    </div>  
-                </div>
-                <div class='player__2'>
-                    <span class="player2__name"><h4>${data.player_2.name}</h4></span>
-                    <div class='player2__data'>
-                        <div class="boxes">
-                            <span>
-                                <h3>${data.player_2.goals[i]}</h3>
-                                <label>GOALS</label>
-                            </span>
-                            <span>
-                                <h3>${data.player_2.assists[i]}</h3>
-                                <label>ASSISTS</label>
-                            </span>
-                            <span>
-                                <h3>${data.player_2.games[i]}</h3>
-                                <label>APPS</label>
-                            </span>
-                        </div>
-                                        
-                    </div>  
-                </div>    
-            </div>
-        </div>            
-        `        
-    });
+
+        if(data.player1.games[i] > data.player2.games[i]){
+            document.querySelectorAll(".player1-games")[i].classList.add("red");
+        }if(data.player1.games[i] < data.player2.games[i]){
+            document.querySelectorAll(".player2-games")[i].classList.add("red");
+        } 
     
-    document.querySelector('#stats_1').style.display = 'block'
-    document.querySelector('#stats_2').style.display = 'block'
-    document.querySelector('.player_comparison').style.display = 'block'
-    document.querySelector('.page_loader').style.display  = 'none'
+        if(data.player1.goals[i] > data.player2.goals[i]){
+            document.querySelectorAll(".player1-goals")[i].classList.add("red");
+        }if(data.player1.goals[i] < data.player2.goals[i]){            
+            document.querySelectorAll(".player2-goals")[i].classList.add("red");
+        } 
+
+        if(data.player1.assists[i] > data.player2.assists[i]){
+            document.querySelectorAll(".player1-assists")[i].classList.add("red");
+        }if(data.player1.assists[i] < data.player2.assists[i]){            
+            document.querySelectorAll(".player2-assists")[i].classList.add("red");
+        }     
+    
+    }      
 }
 
 
-function get_goals_by_age(first_player,second_player){     
-    fetch( `/player_comparison/goals_by_age/${first_player}/${second_player}`,{ 
-        headers:{
-            'Content-Type':'application/json',                
-            'X-CSRFToken' : getCookie('csrftoken')          
-        },             
-        })
-    .then((response)=>{ return response.json();}) 
-    .then(result => {
-        var data = result
-        render_goals_by_age(data)
-    })
-}
 
-function render_goals_by_age(data){
-    var ctx = document.querySelector('#by_age').getContext('2d')     
-    gradient = ctx.createLinearGradient(0, 0, 0, 450);
-    gradient.addColorStop(0, 'rgba(255, 0,0, 0.1)');
-    gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0)');
-    gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
-    myLine = new Chart(ctx,{ 
-        type:'line',
-        data: {
-            labels : data.ages,
-            datasets:[                            
-                {
-                    label : data.p1,
-                    data  : data.goals_p1,
-                    fill: 'start',       
-                    backgroundColor: gradient,             
-                    borderColor: 'rgba(255, 0,0,0.5)', 
-                    pointBackgroundColor: 'white',
-                    borderWidth: 2.5,
-                    tension: 0.2
-                },
-                {
-                    label : data.p2,
-                    data  : data.goals_p2,
-                    fill: 'start',
-                    borderColor: 'rgba(237, 187, 0,0.5)',
-                    pointBackgroundColor: 'white',
-                    borderWidth: 2.5,
-                    tension: 0.2
-                }            ]
-        },
-        options: {  
-            maintainAspectRatio: false,              
-            responsive: true,
-                interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            scales: {
-                y: {
-                    ticks: { color: '#aaa', beginAtZero: true }
-                },
-                x: {
-                    ticks: { color: '#aaa', beginAtZero: true }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Goals Evolution by Ages.',
-                    font: {
-                        fontSize: 50
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 30
-                    },
-                    color: "#aaa"
-                },
-                legend: {
-                    display:true,
-                    labels: {
-                        color: '#aaa',                            
-                    }
-                },
-                
-            }
-        }           
-        
-    })
-}
-  
+
+    
+
+

@@ -1,79 +1,115 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<!-- {% block title %}Football Player Charts | Player Comparison {% endblock %} -->
-<link rel="stylesheet" href="{% static 'css/player_comparison.css' %}">
-<link rel="stylesheet" href="{% static 'css/loader.css' %}">  
 
-<section class="form_comparison" style='padding: 15rem 0;'>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="selects">
-            <select class="form-select form-select-lg mb-3" name="first_player"> 
-                {% if first_player %}
-                    <option value="{{first_player.name}}"selected>{{first_player.name}}</option>
-                {% endif %}    
-                {% for player in players %}                   
-                    <option value="{{player.name}}">{{player.name}}</option>    
-                {% endfor %}
-            </select>
-            <select class="form-select form-select-lg mb-3" name="second_player"> 
-                {% if second_player %}
-                    <option value="{{second_player.name}}"selected>{{second_player.name}}</option>
-                {% endif %}      
-                {% for player in players %}   
-                    <option value="{{player.name}}">{{player.name}}</option>    
-                {% endfor %}
-            </select>
-        </div> 
-        <div class="d-grid gap-2">
-            <input class="form-control" type="submit" value="Compare">  
-        </div> 
-    </form>
-</section>
-
-{% if first_player and second_player %}
 <style>
-    .form_comparison{
-        display: none;
+           
+    .player1{
+        background: url({{first_player.picture.url}});
+        background-size: cover;
+        background-position: center;       
+    }
+    .player2{
+        background: url({{second_player.picture.url}});
+        background-size: cover;
+        background-position: center;       
     }
 </style>
-<script>
-    window.onload = function(event){
-        get_players(first_player='{{first_player.name}}',second_player='{{second_player.name}}');
-    }
-</script>
-<div class="page_loader">
-    <div class="lds-roller"><div></div><div></div><div></div><div></div></div>    
+<link rel="stylesheet" href="{% static 'css/player_comparison.css' %}"> 
+
+
+<div class="result">
+    <main>
+        <div class="player-img">
+            <div class="player1"></div>
+        </div>
+        <div class="player-img">
+            <div class="player2"></div> 
+        </div>        
+    </main>
+    <section class="general-stats">
+        <div class="stats-table">
+            <ul>
+                <li class="table-title"><h1>General Stats</h1></li>
+                <li>
+                    <div class="row"><h1></h1></div>
+                    <div class="row"><h1>Matches</h1></div>
+                    <div class="row"><h1></h1></div>
+                </li>
+                <li>
+                    <div class="row"><h1></h1></div>
+                    <div class="row"><h1>Goals</h1></div>
+                    <div class="row"><h1></h1></div>
+                </li>
+                <li>
+                    <div class="row"><h1></h1></div>
+                    <div class="row"><h1>Assists</h1></div>
+                    <div class="row"><h1></h1></div>
+                </li>
+                <li>
+                    <div class="row"><h1></h1></div>
+                    <div class="row"><h1>Involvement</h1></div>
+                    <div class="row"><h1></h1></div>
+                </li>
+            </ul>
+        </div>   
+    </section>
+    
+    <section class="comparison">   
+        <div class="stats_byseasons" style="display: none;">
+            <div class="byseason_title" >
+                <h1>Stats by season</h1>
+            </div>
+            <div class="chart-goals">
+                <canvas id="chart_glsSeasons"></canvas>
+            </div>       
+            <div class="chart-assists">
+                <canvas id="chart_assSeasons"></canvas>
+            </div>     
+        </div>     
+        <div class="stats-compet">
+            <div class="table-players">
+                <h1></h1>
+                <h1></h1>
+            </div>
+            <ul class="title-table">                
+                <div class="li">Matches</div>     
+                <div class="li">Assists</div>            
+                <div class="li" style="padding: 0vw 2vw 0vw 0;">Goals</div>                            
+            
+                <div class="li">Matches</div>     
+                <div class="li">Assists</div>            
+                <div class="li">Goals</div>                                    
+            </ul>
+            <div class="res-table"></div>
+        </div>
+    </section>
+    
 </div>
 
-<section id="stats_1" class="stats__">
-    <div class="main_title"></div>
-    <div class="data">
-        <div class="general"></div>  
-        <div class="involvement"> </div> 
-    </div>     
-</section> 
-
-<section id="stats_2" class="stats__">
-    <div class="main_title"></div>
-    <div class="data">
-        <div class="general"></div>  
-        <div class="involvement"> </div>  
-    </div>    
-</section> 
-
-<section class="player_comparison">    
-    <div class="goals_involvements">
-        <canvas id="involvements_chart" height="600"></canvas>
-    </div>   
-    <div class="goals_by_age">
-        <canvas id="by_age" height="600"></canvas>
-    </div>
-    <div class="competitions"></div> 
-</section>
-{% endif %}
 
 <script src="{% static 'js/player_comparison.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
 
+<script>
+
+    // ONLOAD //
+    var result = document.querySelector(".result");
+    var header   = document.querySelector("header"); 
+    var footer   = document.querySelector("footer");
+    window.onload = ()=>{
+        
+        header.style.visibility   = "visible";   
+        result.style.display      = "block";        
+        footer.style.display      = "table";
+        
+    }
+    
+    const first_player  = "{{first_player}}"; 
+    const second_player = "{{second_player}}";
+
+    get_stats(first_player,second_player)
+</script>
 {% endblock %}
+
+
