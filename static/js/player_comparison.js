@@ -116,14 +116,6 @@ const statsSeasons = (data)=>{
 
 
     var glsSeasons = document.querySelector("#chart_glsSeasons").getContext('2d');
-
-    gradient1 = glsSeasons.createLinearGradient(0, 0, 0, 450);
-    gradient1.addColorStop(0, 'rgba(255, 0,0, 0.5)');
-    gradient1.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
-    gradient1.addColorStop(1, 'rgba(255, 0, 0, 0)');
-
-
-
     
     const barData = {        
         labels : season,
@@ -131,23 +123,46 @@ const statsSeasons = (data)=>{
             {                
                 label: player1 + "'s goals",
                 data: res.player1.goals,                
-                stack: 'Stack 0',
-                fill: true,                 
-                backgroundColor: gradient1,
+                stack: 'Stack 0',                
+                lineTension: 0.3,  
+                borderColor: "rgba(249, 49, 50)",                
+                backgroundColor: "rgba(249, 49, 50, .10)",
+                fill: 'start', 
+                borderWidth: 1,
+                pointBackgroundColor: '#cedddd',
+                
+            },
+            {                
+                label: player1 + "'s assists",
+                data: res.player1.assists,
+                borderColor: "darkred",
+                stack: 'Stack 2',
+                fill: 'start',  
                 pointBackgroundColor: 'white',
                 borderWidth: 1,
-                borderColor: '#911215',
-                
-            },                       
+                lineTension: 0.3,    
+            },                         
             {
                 label: player2 + "'s goals",
                 data:  res.player2.goals,                
                 stack: 'Stack 1',
+                lineTension: 0.3,                
+                borderColor: 'rgba(57,230,253)',                
+                backgroundColor: "rgba(57,230,253,0.10)",
                 fill: 'start',  
-                borderColor: '#cedddd',
-                pointBackgroundColor: '#cedddd',
                 borderWidth: 1,
-            },              
+                pointBackgroundColor: '#cedddd',               
+            },                 
+            {                
+                label: player2 + "'s assists",
+                data: res.player2.assists,
+                borderColor: "#cedddd",
+                stack: 'Stack 3',
+                fill: 'start',  
+                borderWidth: 1,
+                pointBackgroundColor: 'white',    
+                lineTension: 0.3,               
+            },               
         ]
     };   
 
@@ -155,22 +170,13 @@ const statsSeasons = (data)=>{
     linechart1 = new Chart(glsSeasons,{  
         type: 'line',
         data: barData,
-        options: {        
-            
+        options: {           
+            maintainAspectRatio: false,              
+            responsive: true,
             interaction: {
                 mode: 'index',
                 intersect: true,
-            },     
-            plugins: {
-                title: {
-                    display: true,
-                    text: "Player's Goals",
-                    color:"#aaa",
-                    textAlign: 'right'
-                },
-            },         
-            // indexAxis: 'y',            
-            responsive: true,
+            },      
             scales: {
                 x: {
                     stacked: true,
@@ -178,65 +184,18 @@ const statsSeasons = (data)=>{
                 y: {
                     stacked: true
                 }
-            }
-        }
+            },
+            plugins: { 
+                legend: {                
+                  display:true,                
+                  labels: {
+                    color: '#adadad',                                                 
+                  },                                                            
+                },              
+            }  
+        },        
     })
 
-
-    const dataAssists = {        
-        labels : season,
-        datasets: [            
-            {                
-                label: player1 + "'s assists",
-                data: res.player1.assists,
-                backgroundColor: "red",
-                stack: 'Stack 0',
-                fill: 'start',  
-                pointBackgroundColor: 'white',
-            },            
-            
-            {                
-                label: player2 + "'s assists",
-                data: res.player2.assists,
-                backgroundColor: "#aaad1",
-                stack: 'Stack 1',
-                fill: 'start',  
-                pointBackgroundColor: 'white',                
-            },    
-            ]
-    };
-
-    var assSeasons = document.querySelector("#chart_assSeasons");
-
-
-    linechart2 = new Chart(assSeasons,{  
-        type: 'line',
-        data: dataAssists,
-        options: {        
-            
-            interaction: {
-                mode: 'index',
-                intersect: true,
-            },     
-            plugins: {
-                title: {
-                    display: true,
-                    text: "Player's Assists",
-                    color:"#aaa"
-                },
-            },         
-            // indexAxis: 'y',            
-            responsive: true,
-            scales: {
-                x: {
-                    stacked: true,
-                },
-                y: {
-                    stacked: true
-                }
-            }
-        }
-    })
 }
 
 
@@ -265,18 +224,28 @@ const statsCompetition = (data)=>{
     var resTable =  document.querySelector('.res-table');
 
     for (i in data.player1.competition){    
+
+        var competition = document.createElement("h1");
         
+        competition.innerHTML = data.player1.competition[i];
+        competition.className = "competition_name";
+        resTable.appendChild(competition);
+
         var performace = document.createElement("ul");
         performace.className = "performace";
 
         performace.innerHTML =  `
-            <h1>${data.player1.competition[i]}</h1>
-            <li class="table-data player1-games">${data.player1.games[i]}</li>
-            <li class="table-data player1-assists">${data.player1.assists[i]}</li>
-            <li class="table-data player1-goals" style="padding: 2vw 2vw 2vw 0;">${data.player1.goals[i]}</li>
-            <li class="table-data player2-games">${data.player2.games[i]}</li>
-            <li class="table-data player2-assists">${data.player2.assists[i]}</li>
-            <li class="table-data player2-goals">${data.player2.goals[i]}</li>
+            
+                <li class="table-data player1-games">${data.player1.games[i]}</li>
+                <li class="table-data player1-assists">${data.player1.assists[i]}</li>
+                <li class="table-data player1-goals">${data.player1.goals[i]}</li>
+           
+            
+                <li class="table-data player2-games">${data.player2.games[i]}</li>
+                <li class="table-data player2-assists">${data.player2.assists[i]}</li>
+                <li class="table-data player2-goals">${data.player2.goals[i]}</li>
+              
+              
         `
         resTable.appendChild(performace);
 

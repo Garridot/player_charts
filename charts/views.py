@@ -231,6 +231,79 @@ def career_games(request,player,team):
 
 
 
+def international_competition():
+    player = Player.objects.get(name="Neymar")
+
+    team = "total" 
+
+    if team == 'total':
+        stats = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player).values())
+
+        
+    else:  
+        stats = pd.DataFrame(Player_Stats_by_Season.objects.filter(player=player,team=team).values())     
+
+    
+
+    # Club league Competition
+    filter_league = ["LaLiga","Ligue 1","Serie A","Premier League","Bundesliga","Eredivisie"]    
+
+    club_league = stats.loc[stats['competition'].str.contains('|'.join(filter_league))]
+    club_league = club_league.groupby(['competition']).sum()
+
+
+
+    uefa_league = stats.loc[stats['competition'].str.contains('|'.join(['UEFA Champions League',"Europa League"]))]
+
+    # remove qualifying rows
+    uefa_league = uefa_league.loc[uefa_league['competition'].str.contains("Qualifying") == False]
+
+
+    uefa_league = uefa_league.groupby(['competition']).sum()   
+
+
+    
+   
+
+    
+    
+
+    
+    
+
+
+
+
+
+    # Nation Competition
+    nation = stats.loc[stats['competition'].str.contains('|'.join(['Copa América',"EURO","World Cup"]))] 
+    nation['competition'] = nation['competition'].str.replace('\d+', '')
+
+    # remove qualifying or world cup club row
+    nation = nation.loc[nation['competition'].str.contains('|'.join(["qualification","FIFA Club"])) == False]
+
+    nation['competition'] = nation['competition'].str.strip()
+    nation = nation.groupby(['competition']).sum()
+
+    
+
+
+    # if "World Cup" in nation.index:
+    #     world_cup = nation.loc[nation.index.str.len() == 9]
+    # else: world_cup = 0
+
+    # if "EURO" in nation.index:        
+    #     continental = nation.loc[nation.index.str.len() == 4]
+    # elif "Copa América" in nation.index:
+    #     continental = nation.loc[nation.index.str.len() == 12]
+    # else:
+    #     continental = 0   
+    
+    
+    # result = pd.DataFrame({'bla':[1,2,3],'bla2':['a','b','c']}).to_json(orient='records')
+    # print(json.loads(result))
+
+
 
 
 

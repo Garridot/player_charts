@@ -28,7 +28,7 @@ main::after{
     transform: scale(1.2);
 }
 
-
+/**** GENERAL STATS ****/
 
 
 .general-stats{
@@ -67,8 +67,6 @@ main::after{
     font-size: 1.5vw;    
 }
 
-
-
 .stats-table ul li .row:nth-child(2) h1{
     font-size: 1.2vw;
     display: flex;
@@ -92,50 +90,82 @@ main::after{
 @media(max-width:1200px){
     .stats-table ul {
         width: 70%;
+        padding: 0;
     }
 }
 
 @media(max-width:1000px){
-    .stats-table ul li .row:nth-child(2) {
-        font-size: 1vw;
+    .stats-table ul {
+        width: 90%;
     }
+    .stats-table ul li {        
+        justify-content: space-between;
+    }
+    .stats-table ul li.table-title h1 {        
+        font-size: 2vw;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .stats-table ul li .row h1 {        
+        padding: 0 5vw;
+    }
+
+    .stats-table ul li .row:nth-child(2) h1 {
+        font-size: 1.8vw;
+    }    
 }
 
 @media(max-width:800px){
+    
+    .stats-table ul li.table-title h1 {        
+        font-size: 2.5vw;       
+    }
+    .stats-table ul li .row h1 {
+        font-size: 2.2vw;
+    }
+    .stats-table ul li .row:nth-child(2) h1 {
+        font-size: 2.2vw;
+    }
+    
+}
+
+@media(max-width:600px){
+    
+    .stats-table ul li.table-title h1 {        
+        font-size: 3vw;       
+    }
+    .stats-table ul li .row h1 {
+        font-size: 3vw;
+    }
+    .stats-table ul li .row:nth-child(2) h1 {
+        font-size: 2.5vw;
+    }
+    
+}
+
+@media(max-width:500px){
     .stats-table ul {
-        width: 80%;
+        width: 95%;
+    }  
+    .stats-table ul li {        
+        justify-content: space-evenly;
+    }  
+    .stats-table ul li.table-title h1 {        
+        font-size: 3.5vw;       
     }
-    .stats-table ul li.table-title {               
-        font-size: 1vw;
+    .stats-table ul li .row h1 {
+        font-size: 3.5vw;
     }
+    .stats-table ul li .row:nth-child(2) h1 {
+        font-size: 2.8vw;
+    }
+
+    .stats-table ul li {        
+        padding: 4vw 0;       
+    }    
 }
 
-@media(max-width:600px){  
-    .stats-table ul {
-        width: 90%;
-    }          
-    .stats-table ul li .row:nth-child(2) {
-        font-size: 1.5vw;
-    } 
-    .stats-table ul li.table-title {               
-        font-size: 1.2vw;
-    }           
-}
-
-@media(max-width:500px){ 
-    .stats-table ul li.table-title {               
-        font-size: 1.5vw;
-    }           
-}
-
-@media(max-width:400px){  
-    .stats-table ul li.table-title {               
-        font-size: 2vw;
-    }
-    .stats-table ul li .row:nth-child(2) {
-        font-size: 2vw;
-    }
-}
 
 
 
@@ -144,69 +174,116 @@ main::after{
 
 .stats_byseasons{
     margin: 10rem auto;
-    width: 90%;    
+    width: 90%;  
+    padding: 0 0  10rem;
 }
 
 .byseason_title h1{
     width: 100%;
-    color: #c7c7c7;
-    /* padding: 0 0 1rem;
-    border-bottom: .5px solid #aaa; */
+    color: #c7c7c7;    
     text-transform: uppercase; 
     font-family: "NeueMontreal-Light";   
     font-size: 1.1vw;
     letter-spacing: 2px;
-    text-align: end;
-    margin: 0 0 5rem;
+    text-align: center;
+    margin: 0 0 5rem;   
 }
 
-.chart-goals,
-.chart-assists{
-    padding: 0 0 20rem;
+@media(max-width:1200px){
+    .byseason_title h1{
+        font-size: 1.4vw;
+    }
 }
+
+@media(max-width:1000px){
+    .byseason_title h1{
+        font-size: 1.5vw;
+    }
+}
+
+@media(max-width:800px){
+    .byseason_title h1{
+        font-size: 2vw;
+    }
+}
+
+@media(max-width:600px){
+    .byseason_title h1{
+        font-size: 2.5vw;
+    }
+}
+
+@media(max-width:400px){
+    .byseason_title h1{
+        font-size: 3vw;
+    }
+}
+
+
+
+
 
 
 /* stats by competitions */
 
 
+.compet_title h1{
+    width: 100%;
+    color: #c7c7c7;    
+    text-transform: uppercase; 
+    font-family: "NeueMontreal-Light";   
+    font-size: 1.1vw;
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 0 0 10rem;   
+}
+
+
 .stats-compet {
     width: 90%;
     margin: auto;
-    margin-top: 10rem;
 }
+
 
 .table-players {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     padding: 0 0 2vw;
 }
 
 .table-players h1{
-    width: 24%;
+    width: 50%;
     font-size: 1vw;
     text-align: center;
     text-transform: uppercase; 
     font-family: "NeueMontreal-Light";   
     color: #c7c7c7;
+    letter-spacing: 2px;
 }
 
 ul.title-table {
-    padding: 0;
+    padding: 0 0 1rem;
     margin: 0;
     list-style: none;
     display: flex;
-    justify-content: end;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: auto;
 }
 
-ul.title-table  .li {
+ul.title-table .li{
     text-transform: uppercase;
     color: #c7c7c7;
     font-family: "NeueMontreal-Light";
     font-size: 1vw;
     width: 8%;
     text-align: center;
+    letter-spacing: 2px;
 }
 
+ul.title-table .li:nth-child(3){
+    padding: 0vw 20vw 0vw 0;
+}
 
 
 .res-table ul.performace{
@@ -214,9 +291,11 @@ ul.title-table  .li {
     margin: 0;
     list-style: none;
     display: flex;
-    justify-content: end;
+    justify-content: space-evenly;
     position: relative;
     border-bottom: 1px solid;    
+    width: 90%;
+    margin: auto;
 }
 
 .res-table ul.performace li{
@@ -225,7 +304,13 @@ ul.title-table  .li {
     font-family: "NeueMontreal-Light";    
     width: 8%;
     text-align: center;
-    padding: 2vw 0;
+    padding: 0vw 0 2vw;
+    font-size: 1.5vw;
+    letter-spacing: 2px;
+}
+
+.res-table ul.performace li:nth-child(3){
+    padding: 0vw 20vw 2vw 0;
 }
 
 
@@ -239,34 +324,120 @@ ul.title-table  .li {
     padding: 0 0 0 2vw ;
 } 
 
-.performace h1{    
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
+.res-table h1.competition_name{    
+    text-align: center;
     text-transform: uppercase;
     font-size: 1.2vw;
     color: #c7c7c7;
     font-family: "NeueMontreal-Light";    
     font-weight: 100;
-    padding: 2vw 0 ;   
+    padding: 3vw 0 1vw;   
+    letter-spacing: 2px;
 }
 
-@media(max-width:1400px){
-    .table-players h1 {
-        width: 30%;
+
+@media(max-width:1200px){
+    .compet_title h1{
+        font-size: 1.4vw;
     }
-    ul.title-table .li{
-        font-size: 1.1vw;
-        width: 10%;
-    } 
-    .res-table ul.performace li{
-        width: 10%;
-    } 
+    .table-players h1 {
+        width: 45%;
+        font-size: 1.2vw;       
+    }
+    .res-table h1.competition_name{
+        font-size: 1.2vw;        
+    }
+    ul.title-table {
+        width: 100%;
+    }
+    ul.title-table .li {        
+        font-size: 1.2vw;        
+    }
+    .res-table ul.performace{
+        width: 100%;
+    }    
+    .res-table ul.performace li {        
+        font-size: 2vw;
+        padding: 2vw 0;        
+    }
+    .res-table ul.performace li:nth-child(3) {
+        padding: 2vw 20vw 2vw 0;
+    }
 }
 
-@media(max-width:1400px){
-    .performace h1 {             
+
+@media(max-width:1000px){
+    .compet_title h1{
         font-size: 1.5vw;
     }
+    .table-players h1 {        
+        font-size: 1.5vw;
+       
+    }
+    .res-table h1.competition_name{
+        font-size: 1.5vw;       
+    }
+    ul.title-table .li {        
+        font-size: 1.5vw;       
+    }
+    ul.title-table .li:nth-child(3) {
+        padding: 0vw 30vw 0vw 0;
+    }
+    .res-table ul.performace li:nth-child(3) {
+        padding: 2vw 30vw 2vw 0;
+    }
 }
+
+@media(max-width:800px){
+    .compet_title h1{
+        font-size: 2vw;
+    }
+    .table-players h1 {
+        width: 40%;
+        font-size: 2vw;        
+    }
+    .res-table h1.competition_name {
+        font-size: 2vw; 
+        padding: 5vw 0 1vw;       
+    }
+    .res-table ul.performace li {        
+        padding: 3vw 0;        
+    }
+    .res-table ul.performace li:nth-child(3) {
+        padding: 3vw 30vw 3vw 0;
+    }  
+
+    ul.performace li:nth-child(3) {
+        padding: 3vw 30vw 3vw 0;
+    }    
+    
+}
+@media(max-width:600px){
+    .compet_title h1{
+        font-size: 2.5vw;
+    }
+    .table-players h1 {       
+        font-size: 2.5vw;        
+    }
+    .res-table h1.competition_name {
+        font-size: 2.5vw;        
+    }
+    .res-table ul.performace li {
+        font-size: 3vw;
+        padding: 5vw 0;
+    }
+    .res-table ul.performace li:nth-child(3) {
+        padding: 5vw 30vw 5vw 0;
+    }
+    ul.performace li:nth-child(3) {
+        padding: 5vw 30vw 5vw 0;
+    }   
+}
+
+@media(max-width:400px){
+    .compet_title h1{
+        font-size: 3vw;
+    }
+}
+
+
