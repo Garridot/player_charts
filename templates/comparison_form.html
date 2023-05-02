@@ -4,16 +4,53 @@
 <!-- {% block title %}Football Player Charts | Player Comparison {% endblock %} -->
 <link rel="stylesheet" href="{% static 'css/comparison_form.css' %}">
 
+<style>    
+    .title-p {
+        width: 90%;
+        margin: auto;
+        font-size: 1.2vw;
+        letter-spacing: 5px;
+        text-align: center;
+        color: #c7c7c7;  
+        padding: 2.8vw 0 0;
+        text-transform: uppercase;
+
+    }
+    .title-p p{
+        padding: 0;
+        margin: 0;
+        font-family: "NeueMontreal-Light"; 
+    } 
+    @media(max-width:800px){
+        .title-p {           
+            padding: 3.8vw 0 0;  
+            font-size: 2vw;          
+        }
+    }
+    @media(max-width:600px){
+        .title-p {           
+            padding: 6.5vw 0 0;  
+            font-size: 2.5vw;          
+        }
+    }
+    
+</style>
+
+<div class="title-p">
+    <p>Player Comparison</p>
+</div>  
 <section class="form_comparison">
     <form method="POST">
         {% csrf_token %}
         <div class="selects">
+            <label for="">First player</label>
             <select class="form-select form-select-lg mb-3" name="first_player">                 
                 <option value="{{players.0.name}}"selected>{{players.0.name}}</option>                 
                 {% for player in players %}                   
                     <option value="{{player.name}}">{{player.name}}</option>    
                 {% endfor %}
             </select>
+            <label for="">Second player</label>
             <select class="form-select form-select-lg mb-3" name="second_player">                
                 <option value="{{players.1.name}}"selected>{{players.1.name}}</option>
                  

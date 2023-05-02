@@ -21,6 +21,29 @@ form .selects select{
     letter-spacing: 2px;
     border-radius: 0;
 }
+
+form label {
+    display: inline-block;
+    width: 100%;
+    padding: 1vw 0px;
+    font-size: smaller;
+    text-transform: uppercase;
+    font-family: "NeueMontreal-Light";
+    color: #aaa;
+    letter-spacing: 2px;
+}
+
+
+@media(max-width:1000px){
+    form label {        
+        font-size: .8rem;
+    }
+}
+@media(max-width:600px){
+    form label {        
+        font-size: .6rem;
+    }
+}
 form .selects select option{
     font-family: "NeueMontreal-Light";
     letter-spacing: 2px;

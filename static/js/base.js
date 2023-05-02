@@ -1,3 +1,27 @@
+// ONLOAD //
+
+var header   = document.querySelector("header");
+var mainImg  = document.querySelector("main .main-img");
+var homedata = document.querySelector("section.home-data");
+var footer   = document.querySelector("footer");
+
+var result   = document.querySelector(".result");
+window.onload = ()=>{
+    setTimeout(()=>{
+        header.style.visibility   = "visible";
+        if(mainImg){
+            mainImg.style.visibility  = "visible";
+        }
+        if(homedata){
+            homedata.style.display    = "block";
+        }
+        if(result){
+            result.style.display    = "block";
+        }
+        footer.style.display      = "table";
+    },1000)
+}
+
 // CLICK NAVE //
 
 var barmenu    = document.querySelector(".bar-menu");
