@@ -176,15 +176,7 @@ const statsSeasons = (data)=>{
             interaction: {
                 mode: 'index',
                 intersect: true,
-            },      
-            scales: {
-                x: {
-                    stacked: true,
-                },
-                y: {
-                    stacked: true
-                }
-            },
+            }, 
             plugins: { 
                 legend: {                
                   display:true,                

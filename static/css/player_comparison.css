@@ -219,6 +219,9 @@ main::after{
     }
 }
 
+.chart-season {
+    height: 100vh;
+}
 
 
 
