@@ -12,6 +12,10 @@
     width: 100%;
 }
 
+form .selects {
+    margin: 0 0 3rem;
+}
+
 form .selects select{
     color: #aaa;
     background: #030303;
