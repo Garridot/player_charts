@@ -1,13 +1,13 @@
-# FOOTBALL PLAYER CHARTS
+## FOOTBALL PLAYER CHARTS
 Football Player Charts is an API about football statistics where you can find information, statistics, and charts demonstrating the player's impact on each team they played for.
 
 ## HOW THE DATA IS COLLECTED?
 
-The data is gathered solely through web scraping on ![transfermarkt.com.](https://www.transfermarkt.es/) This API is designed for consumption purposes only, and **it only allows for the use of HTTP GET method.**
+The data is gathered solely through web scraping on [transfermarkt.com.](https://www.transfermarkt.es/) This API is designed for consumption purposes only, and **it only allows for the use of HTTP GET method.**
 
 ## ENDPOINTS
 
-The following endpoints are provided:<br><br>
+The following endpoints are provided:
 
 - General Stats
 - Rate of Goals and Assists per match
@@ -19,10 +19,10 @@ The following endpoints are provided:<br><br>
 
 # 💻 Languages, Frameworks, Libraries:
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white) ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) 
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white) ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) 
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)<br><br>
 
-**View Project: football-player-charts.onrender.com/** 
+**View Project: [football-player-charts.onrender.com/](football-player-charts.onrender.com/)** 
 
 ## Project Images: 
 
